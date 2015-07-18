@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 
 
+
 app.set('view engine', 'jade');
 app.set('views', './views');
 
@@ -19,15 +20,23 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-
+var Picture = db.Picture;
 
 
 //create routes here
 app.get('/', function(req, res) {
-  res.render('index', {
-    title : 'Name of the day',
-    message: 'FRANK THE TANK!'
-  });
+
+  Picture.findAll().then(function (pictures){
+    res.render('index', {
+      title : 'Name of the day',
+      message: 'FRANK THE TANK!',
+      recordNum : pictures.length
+    }).catch(function (err) {
+        throw err;
+    });
+  })
+
+
 
 });
 
@@ -40,6 +49,12 @@ app.get('/new_photo', function(req, res) {
 });
 
 app.post('/gallery', function(req, res) {
+
+
+
+
+
+
   res.send('hello world');
 });
 
