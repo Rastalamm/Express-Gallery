@@ -50,7 +50,7 @@ app.get('/new_photo', function(req, res) {
 
 app.post('/gallery', function(req, res) {
 
-
+  Picture.
 
 
 
