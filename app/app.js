@@ -26,10 +26,13 @@ var Picture = db.Picture;
 //create routes here
 app.get('/', function(req, res) {
 
+
   Picture.findAll().then(function (pictures){
+
+
     res.render('index', {
       title : 'Name of the day',
-      message: 'FRANK THE TANK!',
+      author: pictures[1].dataValues.author,
       recordNum : pictures.length
     }).catch(function (err) {
         throw err;
@@ -41,6 +44,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/gallery/:id', function(req, res) {
+
+  console.log(req.params.id);
+
   res.send('hello world');
 });
 
@@ -50,9 +56,11 @@ app.get('/new_photo', function(req, res) {
 
 app.post('/gallery', function(req, res) {
 
-  Picture.
-
-
+  Picture.create({
+    author : req.body.author,
+    link : req.body.link,
+    description : req.body.description
+  })
 
 
   res.send('hello world');
