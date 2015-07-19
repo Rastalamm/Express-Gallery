@@ -1,6 +1,6 @@
 extends base
 block append body
-  h1 Awesome Images
+  h1 Awesome Images #{pictures.length}
   div.post_house
     each picture in pictures
       img.image(src= picture.link)

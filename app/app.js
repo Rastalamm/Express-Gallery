@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 // var connect        = require('connect')
 var methodOverride = require('method-override')
-
+var idRequested;
 
 
 app.set('view engine', 'jade');
@@ -19,7 +19,14 @@ db.sequelize.sync();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
-app.use(methodOverride('_method'));
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 
 
 
@@ -87,15 +94,12 @@ app.post('/gallery', function(req, res) {
     res.render('individual', {
       picture : Picture
     })
-
   })
-
-
 });
 
 app.get('/gallery/:id/edit', function(req, res) {
 
-  var idRequested = req.params.id
+  idRequested = req.params.id
 
   Picture.findById(idRequested).then(function (picture){
 
@@ -106,17 +110,13 @@ app.get('/gallery/:id/edit', function(req, res) {
     }else{
       res.render('404');
     }
-
   }).catch(function (err) {
       throw err;
   });
-
 });
 
 app.put('/gallery/:id', function(req, res) {
-var idRequested = req.params.id
-console.log('kjfsdakljfklasjdfklashjk', req);
-console.log('kjfsdakljfklasjdfklashjk', idRequested);
+  idRequested = req.params.id
 
   Picture.findById(idRequested).then(function (picture){
 
@@ -131,34 +131,32 @@ console.log('kjfsdakljfklasjdfklashjk', idRequested);
       })
 
     })
-
-
-
   }).catch(function (err) {
       throw err;
   });
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
 
 
 
-
-
-
-
 app.delete('/gallery/:id', function(req, res) {
+
+  idRequested = req.params.id
+
+  Picture.findById(idRequested).then(function (picture){
+
+    if(picture){
+      picture.destroy().then(function (){
+        res.redirect('/');
+      })
+    }else{
+      res.send('Bad ID');
+    }
+
+  }).catch(function (err) {
+      throw err;
+  });
 
 });
 
