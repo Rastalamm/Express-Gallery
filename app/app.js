@@ -5,8 +5,6 @@ var bodyParser = require('body-parser');
 
 
 
-
-
 app.set('view engine', 'jade');
 app.set('views', './views');
 
@@ -43,11 +41,16 @@ app.get('/gallery/:id', function(req, res) {
 
   var idRequested = req.params.id
 
-  Picture.findById(idRequested).then(function (pictures){
+  Picture.findById(idRequested).then(function (picture){
 
-    res.render('individual', {
-      pictures : pictures
-    })
+    if(picture){
+      res.render('individual', {
+        picture : picture
+      })
+    }else{
+      res.render('404');
+    }
+
 
   }).catch(function (err) {
       throw err;
