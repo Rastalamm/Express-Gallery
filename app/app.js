@@ -2,6 +2,8 @@ var db = require('../models');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+// var connect        = require('connect')
+var methodOverride = require('method-override')
 
 
 
@@ -17,6 +19,9 @@ db.sequelize.sync();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+app.use(methodOverride('_method'));
+
+
 
 var Picture = db.Picture;
 
@@ -54,7 +59,7 @@ app.get('/gallery/:id', function(req, res) {
 
   }).catch(function (err) {
       throw err;
-  });;
+  });
 
 
 });
@@ -92,15 +97,49 @@ app.get('/gallery/:id/edit', function(req, res) {
 
   var idRequested = req.params.id
 
-//edit_photo
+  Picture.findById(idRequested).then(function (picture){
 
-  res.send('hello world');
+    if(picture){
+      res.render('edit_post', {
+        picture : picture
+      })
+    }else{
+      res.render('404');
+    }
+
+  }).catch(function (err) {
+      throw err;
+  });
+
 });
 
 app.put('/gallery/:id', function(req, res) {
 
-  res.send('hello world');
+console.log('kjfsdakljfklasjdfklashjk', req);
+
+  Picture.create({
+    author : req.body.author,
+    link : req.body.link,
+    description : req.body.description
+  }).then(function (Picture){
+
+    res.render('individual', {
+      picture : Picture
+    })
+
+  })
+
+
+
 });
+
+
+
+
+
+
+
+
 
 app.delete('/gallery/:id', function(req, res) {
 

@@ -3,7 +3,37 @@ block append body
   h1 A Picture
   h2!= author
   div.post_house
-
+  h1= picture.id
   img.image(src= picture.link)
   h3.author Author: #{picture.author}
   p.description= picture.description
+  div
+    h1 edit the post
+    form(method='POST', action='/gallery/#{picture.id}')
+      br
+      input(
+        type='hidden'
+        name='_method'
+        value='PUT'
+        )
+      input(
+        type='text'
+        name='author'
+        placeholder='your name'
+        )
+      br
+      input(
+        type='text'
+        name='link'
+        placeholder='link to photo'
+        )
+      br
+      input(
+        type='text'
+        name='description'
+        placeholder='description'
+        )
+      br
+      input(
+        type='submit'
+        )
