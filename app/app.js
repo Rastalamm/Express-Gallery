@@ -114,20 +114,37 @@ app.get('/gallery/:id/edit', function(req, res) {
 });
 
 app.put('/gallery/:id', function(req, res) {
-
+var idRequested = req.params.id
 console.log('kjfsdakljfklasjdfklashjk', req);
+console.log('kjfsdakljfklasjdfklashjk', idRequested);
 
-  Picture.create({
-    author : req.body.author,
-    link : req.body.link,
-    description : req.body.description
-  }).then(function (Picture){
+  Picture.findById(idRequested).then(function (picture){
 
-    res.render('individual', {
-      picture : Picture
+    picture.updateAttributes({
+      author : req.body.author,
+      link : req.body.link,
+      description : req.body.description
+    }).then(function (Picture){
+
+      res.render('individual', {
+        picture : Picture
+      })
+
     })
 
-  })
+
+
+  }).catch(function (err) {
+      throw err;
+  });
+
+
+
+
+
+
+
+
 
 
 

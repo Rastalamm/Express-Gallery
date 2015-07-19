@@ -9,13 +9,13 @@ block append body
   p.description= picture.description
   div
     h1 edit the post
-    form(method='POST', action='/gallery/#{picture.id}')
+    form(method='POST', action='/gallery/#{picture.id}?_method=PUT')
       br
-      input(
-        type='hidden'
-        name='_method'
-        value='PUT'
-        )
+      //- input(
+      //-   type='hidden'
+      //-   name='_method'
+      //-   value='PUT'
+      //-   )
       input(
         type='text'
         name='author'
