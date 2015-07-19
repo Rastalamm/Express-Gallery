@@ -28,16 +28,12 @@ app.get('/', function(req, res) {
 
 
   Picture.findAll().then(function (pictures){
-
-
     res.render('index', {
-      title : 'Name of the day',
-      author: pictures[1].dataValues.author,
-      recordNum : pictures.length
-    }).catch(function (err) {
-        throw err;
-    });
-  })
+      pictures : pictures
+    })
+  }).catch(function (err) {
+      throw err;
+  });
 
 
 
@@ -45,14 +41,28 @@ app.get('/', function(req, res) {
 
 app.get('/gallery/:id', function(req, res) {
 
-  console.log(req.params.id);
+  var idRequested = req.params.id
 
-  res.send('hello world');
+  Picture.findById(idRequested).then(function (pictures){
+
+    res.render('individual', {
+      pictures : pictures
+    })
+
+  }).catch(function (err) {
+      throw err;
+  });;
+
+
 });
 
 app.get('/new_photo', function(req, res) {
   res.send('hello world');
 });
+
+
+
+
 
 app.post('/gallery', function(req, res) {
 

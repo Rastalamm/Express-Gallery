@@ -1,0 +1,11 @@
+extends base
+block append body
+  h1 fkjlafsda
+  h2!= author
+  div.post_house
+  div!= pictures
+  each picture in pictures
+    h2!= picture.link
+      //- img.image(src= picture.link)
+      //- h3.author Author: #{picture.author}
+      //- p.description= picture.description

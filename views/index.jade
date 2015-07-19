@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-html(lang="en")
-  head
-  meta(charset="UTF-8")
-  meta(name="viewport" content="width=device-width, initial-scale=1.0")
-  link(rel="stylesheet" href="css/styles.css")
-  title!= title
-
-body
-  h1 #{recordNum}
+extends base
+block append body
+  h1 fkjlafsda
   h2!= author
-  img!= picture
-  h3!= description
+  div.post_house
+    each picture in pictures
+      img.image(src= picture.link)
+      h3.author Author: #{picture.author}
+      p.description= picture.description
