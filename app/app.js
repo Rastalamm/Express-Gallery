@@ -59,8 +59,12 @@ app.get('/gallery/:id', function(req, res) {
 
 });
 
-app.get('/new_photo', function(req, res) {
-  res.send('hello world');
+app.get('/gallery', function(req, res) {
+  //res.send('hello world');
+  //new_photo is the name of the jade file
+
+    res.render('new_photo')
+
 });
 
 
@@ -73,22 +77,33 @@ app.post('/gallery', function(req, res) {
     author : req.body.author,
     link : req.body.link,
     description : req.body.description
+  }).then(function (Picture){
+
+    res.render('individual', {
+      picture : Picture
+    })
+
   })
 
 
-  res.send('hello world');
 });
 
 app.get('/gallery/:id/edit', function(req, res) {
+
+  var idRequested = req.params.id
+
+//edit_photo
+
   res.send('hello world');
 });
 
 app.put('/gallery/:id', function(req, res) {
+
   res.send('hello world');
 });
 
 app.delete('/gallery/:id', function(req, res) {
-  res.send('hello world');
+
 });
 
 

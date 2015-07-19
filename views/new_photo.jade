@@ -1,0 +1,27 @@
+extends base
+block append body
+  h1 A Picture
+  div
+    form(method='POST')
+      br
+      input(
+        type='text'
+        name='author'
+        placeholder='your name'
+        )
+      br
+      input(
+        type='text'
+        name='link'
+        placeholder='link to photo'
+        )
+      br
+      input(
+        type='text'
+        name='description'
+        placeholder='description'
+        )
+      br
+      input(
+        type='submit'
+        )
