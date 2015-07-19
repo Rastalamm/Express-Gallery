@@ -3,7 +3,11 @@ block append body
   h1 A Picture
   h2!= author
   div.post_house
-
-  img.image(src= picture.link)
-  h3.author Author: #{picture.author}
-  p.description= picture.description
+    div.single_post
+      img.image(src= picture.link)
+      h3.author Author: #{picture.author}
+      p.description= picture.description
+      p.edit_button
+        a(href="/gallery/#{picture.id}/edit")
+          button(
+            ) edit me

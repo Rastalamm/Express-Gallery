@@ -54,7 +54,7 @@ app.get('/gallery/:id', function(req, res) {
   var idRequested = req.params.id
 
   Picture.findById(idRequested).then(function (picture){
-
+    console.log(picture);
     if(picture){
       res.render('individual', {
         picture : picture
@@ -72,18 +72,12 @@ app.get('/gallery/:id', function(req, res) {
 });
 
 app.get('/gallery', function(req, res) {
-  //res.send('hello world');
-  //new_photo is the name of the jade file
-
-    res.render('new_photo')
+  res.render('new_photo')
 
 });
 
 
-
-
-
-app.post('/gallery', function(req, res) {
+app.post('/gallery/', function(req, res) {
 
   Picture.create({
     author : req.body.author,
@@ -161,11 +155,16 @@ app.delete('/gallery/:id', function(req, res) {
 });
 
 
-
-
 var server = app.listen(8119, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+//Add functionality fto forward the delete me url
+//make it a delte reqeuest..
+
+//validate the form inputs
+//make sure the middle one is a link

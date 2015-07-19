@@ -2,4 +2,11 @@ body {
   background: orange;
 }
 
+.single_post{
+  border: 1px solid black;
+  margin: 10px, 0px;
+}
 
+.image{
+  width: 300;
+}

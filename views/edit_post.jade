@@ -7,6 +7,11 @@ block append body
   img.image(src= picture.link)
   h3.author Author: #{picture.author}
   p.description= picture.description
+  p.edit_button
+    a(href="/gallery/#{picture.id}/edit")
+      button(
+        ) edit me
+    a(href="/gallery/#{picture.id}") Delete me
   div
     h1 edit the post
     form(method='POST', action='/gallery/#{picture.id}')
@@ -20,18 +25,24 @@ block append body
         type='text'
         name='author'
         placeholder='your name'
+        autocomplete='off'
+        required
         )
       br
       input(
-        type='text'
+        type='url'
         name='link'
         placeholder='link to photo'
+        autocomplete='off'
+        required
         )
       br
       input(
         type='text'
         name='description'
         placeholder='description'
+        autocomplete='off'
+        required
         )
       br
       input(
