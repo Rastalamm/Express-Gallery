@@ -1,17 +1,14 @@
+include mixin
 extends base
 block append body
   h1 A Picture
   h2!= author
   div.post_house
-  h1= picture.id
-  img.image(src= picture.link)
-  h3.author Author: #{picture.author}
-  p.description= picture.description
-  p.edit_button
-    a(href="/gallery/#{picture.id}/edit")
-      button(
-        ) edit me
-    a(href="/gallery/#{picture.id}") Delete me
+    +picturePost(picture)
+      .delete_button
+        a(href="/gallery/#{picture.id}") Delete me
+      .back_to_home
+        a(href="/") Home
   div
     h1 edit the post
     form(method='POST', action='/gallery/#{picture.id}')

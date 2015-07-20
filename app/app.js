@@ -38,6 +38,7 @@ app.get('/', function(req, res) {
 
 
   Picture.findAll().then(function (pictures){
+    console.log(pictures);
     res.render('index', {
       pictures : pictures
     })

@@ -1,14 +1,7 @@
+include mixin
 extends base
 block append body
   h1 Awesome Images #{pictures.length}
   div.post_house
     each picture in pictures
-      div.single_post
-        img.image(src= picture.link)
-        h3.author Author: #{picture.author}
-        p.description= picture.description
-        p.edit_button
-          a(href="/gallery/#{picture.id}/edit")
-            button(
-              ) edit me
-
+      +picturePost(picture)

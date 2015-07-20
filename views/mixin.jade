@@ -1,16 +1,14 @@
-mixin picturePost(pictures)
-h1 #{pictures}
-//- h1 Awesome Images #{pictures.length}
-//- div.post_house
-//-   each picture in pictures
-//-     div.single_post
-//-       img.image(src= picture.link)
-//-       h3.author Author: #{picture.author}
-//-       p.description= picture.description
-//-       p.edit_button
-//-         a(href="/gallery/#{picture.id}/edit")
-//-           button(
-//-             ) edit me
+mixin picturePost(picture)
+  div.single_post
+    img.image(src= picture.link)
+    h3.author Author: #{picture.author}
+    p.description= picture.description
+    div.edit_button
+      a(href="/gallery/#{picture.id}/edit")
+        button(
+          ) edit me
+    if block
+      block
+    else
 
-//- SEE LINK
-//- https://pherricoxide.wordpress.com/2013/07/24/jade-mixins-blocks-attributes-and-more/
+
