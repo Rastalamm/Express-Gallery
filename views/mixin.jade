@@ -1,7 +1,8 @@
 mixin headingSection
   div.row.heading_row
     div.small-12.medium-8.columns.heading
-      h1 _ARCHITEKT
+      img(src='/assets/transparent-logo.png')
+      h1.hidden _ARCHITEKT
     div.small-12.medium-4.columns.sub_heading
       p Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Fee
 
@@ -10,9 +11,9 @@ mixin slickSlider
   img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/andromeda-orbit.jpg')
   img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/launch-orbit.jpg')
 
-mixin picturePost(picture)
-  div.small-12.medium-4.columns.single_post
-      img.home_page_image.small-centered.columns(src= picture.link)
+mixin picturePost(picture, postLayout, imageClass)
+    div(class='single_post ' + postLayout)
+      img(class='small-12 small-centered columns ' + imageClass)(src= picture.link)
       h3.author.small-centered.columns Author: #{picture.author}
       p.description.small-centered.columns= picture.description
     if block

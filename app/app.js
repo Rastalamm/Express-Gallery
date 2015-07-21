@@ -37,7 +37,9 @@ var Picture = db.Picture;
 app.get('/', function(req, res) {
 
 
-  Picture.findAll().then(function (pictures){
+  Picture.findAll({
+    order : [['created_at', 'ASC']]
+  }).then(function (pictures){
 
     res.render('index', {
       pictures : pictures
@@ -57,8 +59,12 @@ app.get('/gallery/:id', function(req, res) {
   Picture.findById(idRequested).then(function (picture){
     console.log(picture);
     if(picture){
-      res.render('individual', {
-        picture : picture
+      Picture.findAll().then(function(pictures){
+        res.render('individual', {
+          picture : picture,
+          pictures : pictures
+        })
+
       })
     }else{
       res.render('404');

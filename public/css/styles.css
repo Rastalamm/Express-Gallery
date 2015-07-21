@@ -3448,6 +3448,9 @@ body {
   background-image: url("/assets/sativa.png");
   box-sizing: border-box; }
 
+.hidden {
+  display: none; }
+
 .heading_row .heading {
   border: 1px solid black; }
 
@@ -3455,24 +3458,67 @@ body {
   border: 1px solid black; }
 
 .slider_row {
-  padding-bottom: 2%;
-  border-bottom: 1px solid black; }
+  padding-bottom: 2%; }
+  @media only screen and (min-width: 401px) and (max-width: 99999px) {
+    .slider_row {
+      border-bottom: 2px solid #bdbdbd; } }
 
 .post_house {
-  margin-top: 2%; }
+  margin-top: 2%;
+  margin-bottom: 10%; }
+  @media only screen and (min-width: 401px) and (max-width: 99999px) {
+    .post_house .home_line {
+      border-bottom: 2px solid #bdbdbd; } }
   .post_house .single_post {
-    border-bottom: 1px solid black;
     margin-top: 2%; }
     .post_house .single_post .home_page_image {
-      height: 150px;
-      width: 100px; }
-      @media only screen and (max-width: em-calc(641)) {
+      height: 180px;
+      width: 375px; }
+      @media only screen and (min-width: 401px) and (max-width: 99999px) {
         .post_house .single_post .home_page_image {
-          height: 250px;
+          height: 180px;
           width: 300px; } }
+    .post_house .single_post .individual_page_image {
+      height: 190px;
+      width: 300px; }
+      @media only screen and (min-width: 401px) and (max-width: 99999px) {
+        .post_house .single_post .individual_page_image {
+          height: 400px;
+          width: 630px; } }
     .post_house .single_post .author {
       font-size: 18px; }
     .post_house .single_post .description {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; }
+
+.individual_page_content_container {
+  margin-top: 2%;
+  font-size: 1.3em;
+  color: #7e7e7e; }
+  @media only screen and (min-width: 401px) and (max-width: 99999px) {
+    .individual_page_content_container .individual_page_author_head {
+      font-size: 1em; } }
+  .individual_page_content_container .individual_page_author_head .spanlink {
+    display: inline-block;
+    width: 250px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .individual_page_content_container .sidebar_content {
+    height: 800px;
+    overflow-y: scroll; }
+    .individual_page_content_container .sidebar_content .sidebar_image {
+      width: 305px;
+      height: 220px; }
+    .individual_page_content_container .sidebar_content .sidebarlink {
+      display: inline-block;
+      width: 175px;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .individual_page_content_container .sidebar_content .sidebar_sub_info {
+      margin-top: 2%;
+      margin-left: 5%; }

@@ -5,12 +5,14 @@
 
 //Variables
 $dark-color : #333333;
+$grey : #7e7e7e;
+$greyLine : #bdbdbd;
 $backgroundImage : url('/assets/sativa.png');
 
 
 //Media Queries
-$small : "only screen and (max-width: em-calc(640))";
-$medium : "only screen and (max-width: em-calc(641))";
+$small : "only screen and (max-width: 400px)";
+$medium : "only screen and (min-width: 401px) and (max-width: 99999px)";
 
 
 // $small-breakpoint:  em-calc(640);
@@ -30,6 +32,10 @@ body {
   box-sizing: border-box;
 }
 
+.hidden{
+  display: none;
+}
+
 .heading_row{
   .heading{
     border: 1px solid black;
@@ -44,26 +50,46 @@ body {
 
 .slider_row{
   padding-bottom: 2%;
-  border-bottom: 1px solid black;
+
+  @media #{$medium}{
+    border-bottom: 2px solid $greyLine;
+  }
+
 }
 
 
 .post_house{
 
   margin-top: 2%;
+  margin-bottom: 10%;
 
+  .home_line{
 
+    @media #{$medium}{
+      border-bottom: 2px solid $greyLine;
+    }
+  }
   .single_post{
-    border-bottom: 1px solid black;
     margin-top: 2%;
 
+
     .home_page_image{
-      height: 150px;
-      width: 100px;
+      height: 180px;
+      width: 375px;
 
       @media #{$medium}{
-        height: 250px;
+        height: 180px;
         width: 300px;
+      }
+    }
+
+    .individual_page_image{
+        height: 190px;
+        width: 300px;
+
+      @media #{$medium}{
+        height: 400px;
+        width: 630px;
       }
     }
 
@@ -80,3 +106,51 @@ body {
   }
 }
 
+.individual_page_content_container{
+  margin-top: 2%;
+  font-size: 1.3em;
+  color: $grey;
+
+  .individual_page_author_head{
+
+      @media #{$medium}{
+        font-size: 1em;
+      }
+
+    .spanlink{
+      display: inline-block;
+      width: 250px;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+
+    }
+  }
+
+  .sidebar_content{
+    height: 800px;
+    overflow-y: scroll;
+
+    .sidebar_image{
+      width: 305px;
+      height: 220px;
+    }
+
+    .sidebarlink{
+      display: inline-block;
+      width: 175px;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar_sub_info{
+      margin-top: 2%;
+      margin-left: 5%;
+    }
+  }
+
+}

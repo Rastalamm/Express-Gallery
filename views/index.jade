@@ -9,5 +9,4 @@ block append body
   div.row.post_house
       each picture in pictures
         a(href="/gallery/#{picture.id}")
-          +picturePost(picture)
-
+          +picturePost(picture, 'medium-4 columns home_line', 'home_page_image')
