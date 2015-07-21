@@ -59,7 +59,7 @@ app.get('/gallery/:id', function(req, res) {
   Picture.findById(idRequested).then(function (picture){
 
     if(picture){
-      Picture.findAll().then(function(pictures){
+      Picture.findAll().then(function (pictures){
         res.render('individual', {
           picture : picture,
           pictures : pictures
@@ -118,6 +118,10 @@ app.get('/gallery/:id/edit', function(req, res) {
 
 app.put('/gallery/:id', function(req, res) {
   idRequested = req.params.id
+  var allPics;
+  Picture.findAll().then(function (pictures){
+    allPics = pictures;
+  })
 
   Picture.findById(idRequested).then(function (picture){
 
@@ -126,20 +130,10 @@ app.put('/gallery/:id', function(req, res) {
       link : req.body.link,
       description : req.body.description
     }).then(function (Picture){
-
-      console.log('kkdjfalsk')
-
-      Picture.findAll().then(function (pictures){
-        res.render('individual', {
-          picture : Picture,
-          Pictures : pictures
-        })
+      res.render('individual', {
+        picture : Picture,
+        pictures : allPics
       })
-
-
-      // res.render('individual', {
-      //   picture : Picture
-      // })
 
     })
   }).catch(function (err) {
