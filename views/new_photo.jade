@@ -1,9 +1,9 @@
 include mixin
 extends base
 block append body
-  h1 A Picture
+  +headingSection
   div
-    form(method='POST' )
+    form(method='POST')
       br
       input(
         type='text'
@@ -29,7 +29,5 @@ block append body
         required
         )
       br
-      input(
-        type='submit'
-        )
+      button submit
   +goHome

@@ -84,7 +84,12 @@ app.get('/gallery', function(req, res) {
 });
 
 
-app.post('/gallery/', function(req, res) {
+app.post('/gallery', function(req, res) {
+  idRequested = req.params.id
+  var allPics;
+  Picture.findAll().then(function (pictures){
+    allPics = pictures;
+  })
 
   Picture.create({
     author : req.body.author,
@@ -93,7 +98,8 @@ app.post('/gallery/', function(req, res) {
   }).then(function (Picture){
 
     res.render('individual', {
-      picture : Picture
+      picture : Picture,
+      pictures : allPics
     })
   })
 });

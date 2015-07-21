@@ -30,6 +30,10 @@ mixin editButton(picture)
   .edit_button
     a(href="/gallery/#{picture.id}/edit")
       button.round.info Edit Me
+mixin cancelButton
+  .cancel_button
+    a(href='/gallery/#{picture.id}')
+      button Cancel
 
 mixin deleteButton(picture)
   form(method='POST', action='/gallery/#{picture.id}')
@@ -38,4 +42,4 @@ mixin deleteButton(picture)
       name='_method'
       value='DELETE'
       )
-    button delete me
+    button Delete

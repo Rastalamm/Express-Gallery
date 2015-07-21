@@ -1,6 +1,7 @@
 include mixin
 extends base
 block append body
+  +headingSection
   .row.individual_page_content_container
     div.small-10.small-centered.medium-8.large-6.large-decentered.columns
       p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
@@ -44,6 +45,7 @@ block append body
           )
         br
         button(type='Submit') Submit
-      div.cancel_button
-        a(href='/gallery/#{picture.id}')
-          button(type='cancel') Cancel
+      div
+        .delete_button
+        +deleteButton(picture)
+        +cancelButton

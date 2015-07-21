@@ -3448,7 +3448,16 @@ body {
   background-image: url("/assets/sativa.png");
   box-sizing: border-box; }
 
+a {
+  color: #7e7e7e; }
+
 a:link {
+  color: #7e7e7e; }
+
+a:hover {
+  color: #7e7e7e; }
+
+a:visited {
   color: #7e7e7e; }
 
 .hidden {

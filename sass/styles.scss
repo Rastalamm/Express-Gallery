@@ -20,9 +20,22 @@ body {
   box-sizing: border-box;
 }
 
+a{
+  color: $grey;
+}
+
 a:link{
   color: $grey;
 }
+
+a:hover{
+  color: $grey;
+}
+
+a:visited{
+  color: $grey;
+}
+
 
 .hidden{
   display: none;

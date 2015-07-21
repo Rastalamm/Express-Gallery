@@ -7,11 +7,8 @@ block append body
       p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
         span.spanlink #{picture.link}
       div.post_house
-        a(href='picture.id')
-          +picturePost(picture, ' ' ,"individual_page_image medium-12")
-          +editButton(picture)
-          //- +goHome
-          //- +deleteButton(picture)
+        +picturePost(picture, ' ' ,"individual_page_image medium-12")
+        +editButton(picture)
       p.copyright.small-12.columns Copyright www.fantasticnorway.co
     div.medium-4.columns.sidebar_content
       each picture in pictures
