@@ -5,10 +5,11 @@ block append body
   h2!= author
   div.post_house
     +picturePost(picture)
-      .delete_button
-        a(href="/gallery/#{picture.id}") Delete me
-      .back_to_home
-        a(href="/") Home
+      +goHome
+      +deleteButton(picture)
+
+
+
   div
     h1 edit the post
     form(method='POST', action='/gallery/#{picture.id}')

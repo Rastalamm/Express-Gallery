@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
 
 
   Picture.findAll().then(function (pictures){
-    console.log(pictures);
+
     res.render('index', {
       pictures : pictures
     })
@@ -136,6 +136,8 @@ app.put('/gallery/:id', function(req, res) {
 
 
 app.delete('/gallery/:id', function(req, res) {
+
+  console.log('delte');
 
   idRequested = req.params.id
 

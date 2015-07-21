@@ -1,14 +1,39 @@
+mixin headingSection
+  div.row.heading_row
+    div.small-12.medium-8.columns.heading
+      h1 _ARCHITEKT
+    div.small-12.medium-4.columns.sub_heading
+      p Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Fee
+
+mixin slickSlider
+  img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/satelite-orbit.jpg')
+  img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/andromeda-orbit.jpg')
+  img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/launch-orbit.jpg')
+
 mixin picturePost(picture)
-  div.single_post
-    img.image(src= picture.link)
-    h3.author Author: #{picture.author}
-    p.description= picture.description
-    div.edit_button
-      a(href="/gallery/#{picture.id}/edit")
-        button(
-          ) edit me
+  div.small-12.medium-4.columns.single_post
+      img.home_page_image.small-centered.columns(src= picture.link)
+      h3.author.small-centered.columns Author: #{picture.author}
+      p.description.small-centered.columns= picture.description
     if block
       block
     else
 
+mixin goHome
+  .back_to_home
+    a(href="/")
+      button home
 
+mixin editButton(picture)
+  .edit_button
+    a(href="/gallery/#{picture.id}/edit")
+      button Edit Me
+
+mixin deleteButton(picture)
+  form(method='POST', action='/gallery/#{picture.id}')
+    input(
+      type='hidden'
+      name='_method'
+      value='DELETE'
+      )
+    button delete me

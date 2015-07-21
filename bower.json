@@ -1,0 +1,19 @@
+{
+  "name": "express-gallery",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Rastalamm/Express-Gallery",
+  "authors": [
+    "Judah Lamm <Judah.Lamm@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.5.2"
+  }
+}

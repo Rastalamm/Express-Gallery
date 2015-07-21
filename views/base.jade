@@ -5,7 +5,27 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet" href="/css/styles.css")
     link(href="http://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Alegreya:700" rel="stylesheet" type="text/css")
+    link(rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css")
+
+
     title The Picture Blog
 
   body
     block body
+    script(src="/bower_components/modernizr/modernizr.js")
+    script(src="/bower_components/jquery/dist/jquery.min.js")
+    script(src="/bower_components/foundation/js/foundation.min.js")
+    script(type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js")
+    script.
+      $(document).foundation()
+    script.
+      $('.slider_image').slick({
+        arrows : false,
+        swipeToSlide : true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        autoplay : true,
+        autoplayspeed: 2000,
+        adaptiveHeight: true
+        })
