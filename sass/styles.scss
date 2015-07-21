@@ -10,10 +10,7 @@ $greyLine : #bdbdbd;
 $backgroundImage : url('/assets/sativa.png');
 
 
-//Media Queries
-$small : "only screen and (max-width: 660px)";
-$medium : "only screen and (min-width: 661px) and (max-width: 999px)";
-$large : "only screen and (min-width: 1000px)";
+
 
 body {
   background-image: $backgroundImage;
@@ -46,17 +43,12 @@ a:visited{
   padding-top: 2%;
 
   .logo{
-    line-height: 9;
-    @media #{$medium, $small}{
-
-    }
+    // @media #{$medium-up}{
+    //   line-height: 9;
+    // }
   }
 
   .sub_heading{
-
-      @media #{$medium, $small}{
-        display: none;
-      }
 
   }
 }
@@ -66,7 +58,7 @@ a:visited{
 .slider_row{
   padding-bottom: 2%;
 
-  @media #{$large}{
+  @media #{$medium-up}{
     border-bottom: 2px solid $greyLine;
   }
 
@@ -80,7 +72,7 @@ a:visited{
 
   .home_line{
 
-    @media #{$large}{
+    @media #{$medium-up}{
       border-bottom: 2px solid $greyLine;
     }
   }
@@ -92,7 +84,7 @@ a:visited{
       height: 180px;
       width: 375px;
 
-      @media #{$large}{
+      @media #{$medium-up}{
         height: 180px;
         width: 300px;
       }
@@ -102,7 +94,7 @@ a:visited{
         height: 190px;
         width: 300px;
 
-      @media #{$large}{
+      @media #{$medium-up}{
         height: 400px;
         width: 630px;
       }
@@ -128,7 +120,7 @@ a:visited{
 
   .individual_page_author_head{
 
-      @media #{$medium, $large}{
+      @media #{$medium-up}{
         font-size: 1em;
       }
 
@@ -144,34 +136,32 @@ a:visited{
     }
   }
 
-    .sidebar_content{
-      @media #{$small, $medium}{
-        display: none;
-      }
+  .sidebar_content{
+    display: none;
+    height: 700px;
+    overflow-y: auto;
 
-        height: 700px;
-        overflow-y: auto;
-
-
-      .sidebar_image{
-        width: 305px;
-        height: 220px;
-      }
-
-      .sidebarlink{
-        display: inline-block;
-        width: 175px;
-        vertical-align: middle;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .sidebar_sub_info{
-        margin-top: 2%;
-        margin-left: 5%;
-      }
+    @media #{$medium-up}{
+      display: visible;
     }
 
+    .sidebar_image{
+      width: 305px;
+      height: 220px;
+    }
 
+    .sidebarlink{
+      display: inline-block;
+      width: 175px;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar_sub_info{
+      margin-top: 2%;
+      margin-left: 5%;
+    }
+  }
 }
