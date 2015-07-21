@@ -3,12 +3,13 @@ extends base
 block append body
   +headingSection
   .row.individual_page_content_container
-    div.small-6.medium-8.columns
+    div.small-12.medium-12.large-8.columns
       p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
         span.spanlink #{picture.link}
       div.post_house
-        +picturePost(picture, ' ' ,"individual_page_image medium-12")
-          //- +editButton(picture)
+        a(href='picture.id')
+          +picturePost(picture, ' ' ,"individual_page_image medium-12")
+          +editButton(picture)
           //- +goHome
           //- +deleteButton(picture)
       p.copyright.small-12.columns Copyright www.fantasticnorway.co

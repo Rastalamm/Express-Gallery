@@ -1,10 +1,11 @@
 mixin headingSection
   div.row.heading_row
-    div.small-12.medium-8.columns.heading
-      img(src='/assets/transparent-logo.png')
-      h1.hidden _ARCHITEKT
-    div.small-12.medium-4.columns.sub_heading
-      p Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Fee
+    div.small-12.medium-7.columns.logo
+      a(href='/')
+        img(src='/assets/transparent-logo.png')
+        h1.hidden _ARCHITEKT
+    div.small-12.medium-5.columns.sub_heading
+      p Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
 
 mixin slickSlider
   img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/satelite-orbit.jpg')
@@ -28,7 +29,7 @@ mixin goHome
 mixin editButton(picture)
   .edit_button
     a(href="/gallery/#{picture.id}/edit")
-      button Edit Me
+      button.round.info Edit Me
 
 mixin deleteButton(picture)
   form(method='POST', action='/gallery/#{picture.id}')

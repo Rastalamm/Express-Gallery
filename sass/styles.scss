@@ -11,25 +11,17 @@ $backgroundImage : url('/assets/sativa.png');
 
 
 //Media Queries
-$small : "only screen and (max-width: 400px)";
-$medium : "only screen and (min-width: 401px) and (max-width: 99999px)";
-
-
-// $small-breakpoint:  em-calc(640);
-// $medium-breakpoint: em-calc(1024);
-// $large-breakpoint:  em-calc(1440);
-// // $xlarge-breakpoint: em-calc(1920);
-
-// $small-range:   (0, $small-breakpoint);
-// $medium-range:  ($small-breakpoint  + em-calc(1), $medium-breakpoint);
-// $large-range:   ($medium-breakpoint + em-calc(1), $large-breakpoint);
-
-
-
+$small : "only screen and (max-width: 660px)";
+$medium : "only screen and (min-width: 661px) and (max-width: 999px)";
+$large : "only screen and (min-width: 1000px)";
 
 body {
   background-image: $backgroundImage;
   box-sizing: border-box;
+}
+
+a:link{
+  color: $grey;
 }
 
 .hidden{
@@ -37,12 +29,22 @@ body {
 }
 
 .heading_row{
-  .heading{
-    border: 1px solid black;
+  height: 150px;
+  padding-top: 2%;
+
+  .logo{
+    line-height: 9;
+    @media #{$medium, $small}{
+
+    }
   }
 
   .sub_heading{
-    border: 1px solid black;
+
+      @media #{$medium, $small}{
+        display: none;
+      }
+
   }
 }
 
@@ -51,7 +53,7 @@ body {
 .slider_row{
   padding-bottom: 2%;
 
-  @media #{$medium}{
+  @media #{$large}{
     border-bottom: 2px solid $greyLine;
   }
 
@@ -65,7 +67,7 @@ body {
 
   .home_line{
 
-    @media #{$medium}{
+    @media #{$large}{
       border-bottom: 2px solid $greyLine;
     }
   }
@@ -77,7 +79,7 @@ body {
       height: 180px;
       width: 375px;
 
-      @media #{$medium}{
+      @media #{$large}{
         height: 180px;
         width: 300px;
       }
@@ -87,7 +89,7 @@ body {
         height: 190px;
         width: 300px;
 
-      @media #{$medium}{
+      @media #{$large}{
         height: 400px;
         width: 630px;
       }
@@ -113,7 +115,7 @@ body {
 
   .individual_page_author_head{
 
-      @media #{$medium}{
+      @media #{$medium, $large}{
         font-size: 1em;
       }
 
@@ -129,28 +131,34 @@ body {
     }
   }
 
-  .sidebar_content{
-    height: 800px;
-    overflow-y: scroll;
+    .sidebar_content{
+      @media #{$small, $medium}{
+        display: none;
+      }
 
-    .sidebar_image{
-      width: 305px;
-      height: 220px;
+        height: 700px;
+        overflow-y: auto;
+
+
+      .sidebar_image{
+        width: 305px;
+        height: 220px;
+      }
+
+      .sidebarlink{
+        display: inline-block;
+        width: 175px;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sidebar_sub_info{
+        margin-top: 2%;
+        margin-left: 5%;
+      }
     }
 
-    .sidebarlink{
-      display: inline-block;
-      width: 175px;
-      vertical-align: middle;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sidebar_sub_info{
-      margin-top: 2%;
-      margin-left: 5%;
-    }
-  }
 
 }

@@ -57,7 +57,7 @@ app.get('/gallery/:id', function(req, res) {
   var idRequested = req.params.id
 
   Picture.findById(idRequested).then(function (picture){
-    console.log(picture);
+
     if(picture){
       Picture.findAll().then(function(pictures){
         res.render('individual', {
@@ -127,9 +127,19 @@ app.put('/gallery/:id', function(req, res) {
       description : req.body.description
     }).then(function (Picture){
 
-      res.render('individual', {
-        picture : Picture
+      console.log('kkdjfalsk')
+
+      Picture.findAll().then(function (pictures){
+        res.render('individual', {
+          picture : Picture,
+          Pictures : pictures
+        })
       })
+
+
+      // res.render('individual', {
+      //   picture : Picture
+      // })
 
     })
   }).catch(function (err) {

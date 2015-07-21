@@ -2,47 +2,49 @@ include mixin
 extends base
 block append body
   h1 A Picture
-  h2!= author
-  div.post_house
-    +picturePost(picture)
-      +goHome
-      +deleteButton(picture)
-
-
-
-  div
-    h1 edit the post
-    form(method='POST', action='/gallery/#{picture.id}')
-      br
-      input(
-      type='hidden'
-      name='_method'
-      value='PUT'
-        )
-      input(
-        type='text'
-        name='author'
-        placeholder='your name'
-        autocomplete='off'
-        required
-        )
-      br
-      input(
-        type='url'
-        name='link'
-        placeholder='link to photo'
-        autocomplete='off'
-        required
-        )
-      br
-      input(
-        type='text'
-        name='description'
-        placeholder='description'
-        autocomplete='off'
-        required
-        )
-      br
-      input(
-        type='submit'
-        )
+  .row.individual_page_content_container
+    div.small-10.small-centered.medium-8.large-6.large-decentered.columns
+      p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
+        span.spanlink #{picture.link}
+      div.post_house
+        +picturePost(picture, ' ' ,"individual_page_image")
+    div.small-10.small-centered.medium-8.large-6.large-decentered.columns
+      h1 Edit the Post
+      form(method='POST', action='/gallery/#{picture.id}')
+        br
+        input(
+        type='hidden'
+        name='_method'
+        value='PUT'
+          )
+        input(
+          type='text'
+          name='author'
+          value='#{picture.author}'
+          onFocus="this.value=''"
+          autocomplete='off'
+          required
+          )
+        br
+        input(
+          type='url'
+          name='link'
+          value='#{picture.link}'
+          onFocus="this.value=''"
+          autocomplete='off'
+          required
+          )
+        br
+        input(
+          type='text'
+          name='description'
+          value='#{picture.description}'
+          onFocus="this.value=''"
+          autocomplete='off'
+          required
+          )
+        br
+        button(type='Submit') Submit
+      div.cancel_button
+        a(href='/gallery/#{picture.id}')
+          button(type='cancel') Cancel
