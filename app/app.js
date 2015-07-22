@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 // var connect        = require('connect')
 var methodOverride = require('method-override')
 var idRequested;
+var slangAway = require('../lib/no-slang');
 
 
 app.set('view engine', 'jade');
@@ -27,6 +28,8 @@ app.use(methodOverride(function(req, res){
     return method
   }
 }))
+
+app.use(slangAway);
 
 
 
@@ -171,7 +174,7 @@ app.delete('/gallery/:id', function(req, res) {
 });
 
 
-var server = app.listen(9987, function () {
+var server = app.listen(8119, function () {
   var host = server.address().address;
   var port = server.address().port;
 
