@@ -3445,7 +3445,7 @@ th.hide-for-touch {
     display: none !important; } }
 
 body {
-  background-image: url("/assets/sativa.png");
+  background-image: url("/assets/small_tiles.png");
   box-sizing: border-box; }
 
 a {
