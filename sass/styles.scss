@@ -39,17 +39,18 @@ a:visited{
 }
 
 .heading_row{
-  height: 150px;
   padding-top: 2%;
+  text-align: center;
 
   .logo{
-    // @media #{$medium-up}{
-    //   line-height: 9;
-    // }
+
   }
 
   .sub_heading{
 
+    .sub_head_text{
+      font-size: .9rem;
+    }
   }
 }
 
@@ -57,54 +58,52 @@ a:visited{
 
 .slider_row{
   padding-bottom: 2%;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-bottom: 2px solid $greyLine;
 
-  @media #{$medium-up}{
-    border-bottom: 2px solid $greyLine;
-  }
 
 }
 
 
 .post_house{
-
   margin-top: 2%;
   margin-bottom: 10%;
 
   .home_line{
 
-    @media #{$medium-up}{
+    @media #{$small}{
       border-bottom: 2px solid $greyLine;
     }
   }
   .single_post{
     margin-top: 2%;
+    border-bottom: 1px solid black;
 
 
     .home_page_image{
-      height: 180px;
-      width: 375px;
+      width: 90%;
+      height: 300px;
+      margin: auto;
+      background-size: cover;
+      background-repeat: no-repeat;
 
       @media #{$medium-up}{
-        height: 180px;
-        width: 300px;
+        width: 90%;
+        height: 160px
+
       }
     }
 
-    .individual_page_image{
-        height: 190px;
-        width: 300px;
-
-      @media #{$medium-up}{
-        height: 400px;
-        width: 630px;
-      }
-    }
 
     .author{
       font-size: 18px;
+      margin-top: 2%;
+      margin-left: 3%;
     }
 
     .description{
+      margin-left: 3%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -118,10 +117,14 @@ a:visited{
   font-size: 1.3em;
   color: $grey;
 
+
   .individual_page_author_head{
+      padding-left: 9%;
+      margin-bottom: 0;
 
       @media #{$medium-up}{
         font-size: 1em;
+
       }
 
     .spanlink{
@@ -131,37 +134,67 @@ a:visited{
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
-
     }
   }
 
-  .sidebar_content{
-    display: none;
-    height: 700px;
-    overflow-y: auto;
+  .individual_post{
+    width: 90%;
+    height: 400px;
+    margin: auto;
+
+  }
+  .individual_page_image{
+    width: 90%;
+    height: 300px;
+    margin: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
 
     @media #{$medium-up}{
-      display: visible;
-    }
-
-    .sidebar_image{
-      width: 305px;
-      height: 220px;
-    }
-
-    .sidebarlink{
-      display: inline-block;
-      width: 175px;
-      vertical-align: middle;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sidebar_sub_info{
-      margin-top: 2%;
-      margin-left: 5%;
+      width: 90%;
+      height: 400px;
     }
   }
+  .edit_button {
+    margin-top: 3%;
+    margin-left: 3%;
+  }
+  .copyright_individual{
+    margin-top: 1%;
+    padding-left: 5%;
+  }
+
+
 }
+
+.sidebar_content{
+  text-align: center;
+  border: 1px solid blue;
+  height: 700px;
+  overflow-y: auto;
+  display: block;
+
+  .sidebar_image{
+    width: 305px;
+    height: 220px;
+  }
+
+  .sidebarlink{
+    display: inline-block;
+    width: 175px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar_sub_info{
+    margin-top: 2%;
+    margin-left: 5%;
+  }
+}
+
+
+  .formButtons{
+    display: block;
+  }

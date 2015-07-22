@@ -5,7 +5,7 @@ mixin headingSection
         img(src='/assets/transparent-logo.png')
         h1.hidden _ARCHITEKT
     div.small-12.medium-5.columns.sub_heading.hide-for-small-only
-      p Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
+      p.sub_head_text Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
 
 mixin slickSlider
   img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/satelite-orbit.jpg')
@@ -14,7 +14,7 @@ mixin slickSlider
 
 mixin picturePost(picture, postLayout, imageClass)
     div(class='single_post ' + postLayout)
-      img(class='small-12 small-centered columns ' + imageClass)(src= picture.link)
+      div(class='small-12 small-centered columns ')(style='background-image: url(#{picture.link});')
       h3.author.small-centered.columns Author: #{picture.author}
       p.description.small-centered.columns= picture.description
     if block
@@ -27,13 +27,15 @@ mixin goHome
       button home
 
 mixin editButton(picture)
-  .edit_button
-    a(href="/gallery/#{picture.id}/edit")
-      button.round.info Edit Me
+  a(href="/gallery/#{picture.id}/edit" class='edit_button')
+    button.round.info.tiny.edit_button Edit Me
+
 mixin cancelButton
-  .cancel_button
-    a(href='/gallery/#{picture.id}')
-      button Cancel
+  a(href='/gallery/#{picture.id}' class='cancel_button formButtons')
+    button(
+      type='button'
+    ) Cancel
+
 
 mixin deleteButton(picture)
   form(method='POST', action='/gallery/#{picture.id}')
@@ -42,4 +44,4 @@ mixin deleteButton(picture)
       name='_method'
       value='DELETE'
       )
-    button Delete
+    button.formButtons Delete

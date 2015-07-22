@@ -3,12 +3,12 @@ extends base
 block append body
   +headingSection
   .row.individual_page_content_container
-    div.small-10.small-centered.medium-8.large-6.large-decentered.columns
+    div.small-10.small-centered.medium-6.medium-decentered.columns
       p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
         span.spanlink #{picture.link}
       div.post_house
         +picturePost(picture, ' ' ,"individual_page_image")
-    div.small-10.small-centered.medium-8.large-6.large-decentered.columns
+    div.small-10.small-centered.medium-6.medium-decentered.columns
       h1 Edit the Post
       form(method='POST', action='/gallery/#{picture.id}')
         br
@@ -44,8 +44,10 @@ block append body
           required
           )
         br
-        button(type='Submit') Submit
-      div
-        .delete_button
-        +deleteButton(picture)
-        +cancelButton
+        div.row.buttons_row
+          div(class='small-4 columns')
+            button.formButtons(type='Submit') Submit
+          div(class='small-4 columns')
+            +cancelButton
+          div(class='small-4 columns')
+            +deleteButton(picture)
