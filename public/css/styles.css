@@ -3464,10 +3464,16 @@ a:visited {
   display: none; }
 
 .heading_row {
-  padding-top: 2%;
-  text-align: center; }
-  .heading_row .sub_heading .sub_head_text {
-    font-size: .9rem; }
+  margin-top: 2%;
+  text-align: center;
+  border-top: 2px solid #bdbdbd; }
+  .heading_row .logo {
+    padding-top: 1%;
+    border-right: 2px solid #bdbdbd; }
+  .heading_row .sub_heading {
+    padding-top: 1%; }
+    .heading_row .sub_heading .sub_head_text {
+      font-size: .9rem; }
 
 .slider_row {
   padding-bottom: 2%;
@@ -3544,7 +3550,6 @@ a:visited {
 
 .sidebar_content {
   text-align: center;
-  border: 1px solid blue;
   height: 700px;
   overflow-y: auto;
   display: block; }

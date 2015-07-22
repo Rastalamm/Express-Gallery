@@ -39,14 +39,18 @@ a:visited{
 }
 
 .heading_row{
-  padding-top: 2%;
+  margin-top: 2%;
   text-align: center;
+  border-top: 2px solid $greyLine;
 
   .logo{
-
+    padding-top: 1%;
+    border-right: 2px solid $greyLine;
   }
 
   .sub_heading{
+
+    padding-top: 1%;
 
     .sub_head_text{
       font-size: .9rem;
@@ -169,7 +173,6 @@ a:visited{
 
 .sidebar_content{
   text-align: center;
-  border: 1px solid blue;
   height: 700px;
   overflow-y: auto;
   display: block;
@@ -198,3 +201,5 @@ a:visited{
   .formButtons{
     display: block;
   }
+
+

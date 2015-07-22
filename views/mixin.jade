@@ -24,7 +24,7 @@ mixin picturePost(picture, postLayout, imageClass)
 mixin goHome
   .back_to_home
     a(href="/")
-      button home
+      button(type='button') Home
 
 mixin editButton(picture)
   a(href="/gallery/#{picture.id}/edit" class='edit_button')

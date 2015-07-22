@@ -4,10 +4,13 @@ block append body
   +headingSection
   .row.individual_page_content_container
     div.small-10.small-centered.medium-6.medium-decentered.columns
-      p.individual_page_author_head #{picture.author}&nbsp-&nbsp;
-        span.spanlink #{picture.link}
       div.post_house
-        +picturePost(picture, ' ' ,"individual_page_image")
+        div.single_post
+          a(href="/gallery/#{picture.id}")
+            div.individual_page_image(style='background-image: url(#{picture.link});')
+            h3.author.small-centered.columns Author: #{picture.author}
+            p.description.small-centered.columns= picture.description
+
     div.small-10.small-centered.medium-6.medium-decentered.columns
       h1 Edit the Post
       form(method='POST', action='/gallery/#{picture.id}')

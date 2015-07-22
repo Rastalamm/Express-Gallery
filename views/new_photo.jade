@@ -2,7 +2,7 @@ include mixin
 extends base
 block append body
   +headingSection
-  div
+  div.small-6.medium-6.small-centered.columns
     form(method='POST')
       br
       input(
@@ -29,5 +29,8 @@ block append body
         required
         )
       br
-      button submit
-  +goHome
+      div.row.buttons_row
+        div(class='small-4 columns ')
+          button.formButtons(type='Submit') Submit
+        div(class='small-4 columns')
+          +goHome
