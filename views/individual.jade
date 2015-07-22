@@ -8,6 +8,7 @@ block append body
     div.post_house.small-12
       div.individual_post
         div.individual_page_image(style='background-image: url(#{picture.link});')
+        p.individual_description.small-centered.columns= picture.description
         p.copyright_individual.small-12.columns Copyright www.fantasticnorway.co
         +editButton(picture)
   .medium-4.columns.sidebar_content.hide-for-small-only
@@ -16,4 +17,5 @@ block append body
         img(class='small-centered columns sidebar_image')(src= picture.link)
       p.sidebar_sub_info #{picture.author} &nbsp;-&nbsp;
         span.sidebarlink #{picture.link}
+
 

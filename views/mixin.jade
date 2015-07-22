@@ -1,11 +1,15 @@
 mixin headingSection
   div.row.heading_row
-    div.small-12.medium-7.columns.logo
+    div.small-10.medium-6.columns.logo
       a(href='/')
         img(src='/assets/transparent-logo.png')
         h1.hidden _ARCHITEKT
     div.small-12.medium-5.columns.sub_heading.hide-for-small-only
       p.sub_head_text Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
+    div.small-2.medium-1.columns.upload_button
+      a(href='/gallery') +
+
+
 
 mixin slickSlider
   img.slider-Images(src='http://foundation.zurb.com/docs/assets/img/examples/satelite-orbit.jpg')

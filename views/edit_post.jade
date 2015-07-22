@@ -28,7 +28,7 @@ block append body
           autocomplete='off'
           required
           )
-        br
+
         input(
           type='url'
           name='link'
@@ -37,7 +37,7 @@ block append body
           autocomplete='off'
           required
           )
-        br
+
         input(
           type='text'
           name='description'
@@ -46,11 +46,12 @@ block append body
           autocomplete='off'
           required
           )
-        br
+
         div.row.buttons_row
           div(class='small-4 columns')
             button.formButtons(type='Submit') Submit
           div(class='small-4 columns')
             +cancelButton
           div(class='small-4 columns')
-            +deleteButton(picture)
+      .lower_corner_button
+        +deleteButton(picture)

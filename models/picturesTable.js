@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey : true,
       autoIncrement : true
     },
-    author : DataTypes.STRING,
+    author : DataTypes.STRING(30),
     link : DataTypes.STRING,
     description : DataTypes.STRING,
     created_at : DataTypes.DATE,

@@ -148,9 +148,6 @@ app.put('/gallery/:id', function(req, res) {
 });
 
 
-
-
-
 app.delete('/gallery/:id', function(req, res) {
 
   console.log('delte');
@@ -174,7 +171,7 @@ app.delete('/gallery/:id', function(req, res) {
 });
 
 
-var server = app.listen(8119, function () {
+var server = app.listen(9987, function () {
   var host = server.address().address;
   var port = server.address().port;
 

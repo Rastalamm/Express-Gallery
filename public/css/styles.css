@@ -3465,8 +3465,10 @@ a:visited {
 
 .heading_row {
   margin-top: 2%;
-  text-align: center;
-  border-top: 2px solid #bdbdbd; }
+  text-align: center; }
+  @media only screen and (min-width: 40.0625em) {
+    .heading_row {
+      border-bottom: 2px solid #bdbdbd; } }
   .heading_row .logo {
     padding-top: 1%;
     border-right: 2px solid #bdbdbd; }
@@ -3474,12 +3476,22 @@ a:visited {
     padding-top: 1%; }
     .heading_row .sub_heading .sub_head_text {
       font-size: .9rem; }
+  .heading_row .upload_button {
+    font-size: 4em;
+    margin-right: 2%; }
+    @media only screen {
+      .heading_row .upload_button {
+        margin-right: 0; } }
+  .heading_row .upload_button > a:hover {
+    color: #CD5555; }
 
 .slider_row {
   padding-bottom: 2%;
   padding-left: 0 !important;
   padding-right: 0 !important;
   border-bottom: 2px solid #bdbdbd; }
+  .slider_row .slider_image {
+    padding: 0; }
 
 .post_house {
   margin-top: 2%;
@@ -3503,7 +3515,10 @@ a:visited {
     .post_house .single_post .author {
       font-size: 18px;
       margin-top: 2%;
-      margin-left: 3%; }
+      margin-left: 3%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
     .post_house .single_post .description {
       margin-left: 3%;
       white-space: nowrap;
@@ -3541,6 +3556,14 @@ a:visited {
       .individual_page_content_container .individual_page_image {
         width: 90%;
         height: 400px; } }
+  .individual_page_content_container .individual_description {
+    padding: 0 5%;
+    margin-top: 3%;
+    margin-bottom: 0;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+    font-size: 1em; }
   .individual_page_content_container .edit_button {
     margin-top: 3%;
     margin-left: 3%; }
@@ -3569,3 +3592,11 @@ a:visited {
 
 .formButtons {
   display: block; }
+
+.buttons_row {
+  padding-left: 4%; }
+
+.lower_corner_button {
+  position: absolute;
+  right: 6%;
+  bottom: 0; }
