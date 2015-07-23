@@ -1,12 +1,16 @@
 var db = require('../models');
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
-// var connect        = require('connect')
 var methodOverride = require('method-override')
 var idRequested;
 var slangAway = require('../lib/no-slang');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
+var Picture = db.Picture;
+var User = db.User;
 
 app.set('view engine', 'jade');
 app.set('views', './views');
@@ -31,12 +35,81 @@ app.use(methodOverride(function(req, res){
 
 app.use(slangAway);
 
+//New middleware for the auth
+app.use(session(
+  {
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+});
+
+/*
+Need to update the username db check
+Check the DB to make sure the Username matches
+*/
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 
-var Picture = db.Picture;
+
+//function that redirects the user back to the home page if they are not authenticated
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}
 
 
 //create routes here
+
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/secret',
+                                   failureRedirect: '/login'})
+);
+
+app.get('/login', function (req, res) {
+  res.render("login", { user: req.user } );
+});
+
+app.get('/logout', function (req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+
+
+
+
+
+
+
+
 app.get('/', function(req, res) {
 
 
@@ -81,13 +154,13 @@ app.get('/gallery/:id', function(req, res) {
 
 });
 
-app.get('/gallery', function(req, res) {
+app.get('/gallery', ensureAuthenticated, function(req, res) {
   res.render('new_photo')
 
 });
 
 
-app.post('/gallery', function(req, res) {
+app.post('/gallery', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -107,7 +180,8 @@ app.post('/gallery', function(req, res) {
   })
 });
 
-app.get('/gallery/:id/edit', function(req, res) {
+
+app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
 
   idRequested = req.params.id
 
@@ -125,7 +199,7 @@ app.get('/gallery/:id/edit', function(req, res) {
   });
 });
 
-app.put('/gallery/:id', function(req, res) {
+app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -172,6 +246,8 @@ app.delete('/gallery/:id', function(req, res) {
   });
 
 });
+
+
 
 
 var server = app.listen(8119, function () {
