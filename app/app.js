@@ -9,6 +9,7 @@ var slangAway = require('../lib/no-slang');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var crypto = require('crypto');
+var cookieParser = require('cookie-parser');
 
 var Picture = db.Picture;
 var User = db.User;
@@ -22,12 +23,13 @@ app.set('views', './views');
 db.sequelize.sync();
 
 
-createUser('judah', 'password');
+// createUser('judah', 'password123');
 
 
 // --Middleware--
 //Used for preprocessing requests
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(methodOverride(function(req, res){
@@ -58,9 +60,10 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+  User.findById(id).then(
+    function(user) {
+      done(null, user);
+    });
 });
 
 
@@ -71,16 +74,45 @@ Check the DB to make sure the Username matches
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
+
+      console.log('full', username, password);
+
+      User.findOne({
+        where: { username: username }
+      }).then(function(user) {
+
+        console.log('in the then', user);
+
+
       if (!user) {
+        console.log('username', username);
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
+      if (user.password !==  makeHash(password)) {
+        console.log('passwrod', hashWord);
         return done(null, false, { message: 'Incorrect password.' });
       }
+
+      console.log('everything is irie', user);
       return done(null, user);
-    });
+
+    }).catch(function (err) {
+      return done(err, null);
+      console.log('error', err);
+      throw err;
+  });
+
+    // User.findOne({ username: username }, function(err, user) {
+
+    //   if (err) { return done(err); }
+    //   if (!user) {
+    //     return done(null, false, { message: 'Incorrect username.' });
+    //   }
+    //   if (!user.validPassword(password)) {
+    //     return done(null, false, { message: 'Incorrect password.' });
+    //   }
+    //   return done(null, user);
+    // });
   }
 ));
 
@@ -96,32 +128,35 @@ function ensureAuthenticated(req, res, next) {
 
 //create the user function
 
+var hashWord;
 
-function createUser (username, password){
+function makeHash (password){
 
   var shasum = crypto.createHash('sha256');
   shasum.update(password);
 
-  var hashWord = shasum.digest('hex');
+  hashWord = shasum.digest('hex');
 
-  User.create({
-    username : username,
-    password : hashWord
-  })
-
+  return hashWord;
 }
 
 
 
+function createUser (username, password){
+
+  User.create({
+    username : username,
+    password : makeHash(password)
+  })
+}
 
 
 //create routes here
 
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/secret',
-                                   failureRedirect: '/login'})
-);
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login' }));
 
 app.get('/login', function (req, res) {
   res.render("login", { user: req.user } );
@@ -148,6 +183,7 @@ app.get('/', function(req, res) {
       pictures : pictures
     })
   }).catch(function (err) {
+    res.send(err);
       throw err;
   });
 
