@@ -33,7 +33,7 @@ app.use(methodOverride(function(req, res){
   }
 }))
 
-app.use(slangAway);
+// app.use(slangAway);
 
 //New middleware for the auth
 app.use(session(
