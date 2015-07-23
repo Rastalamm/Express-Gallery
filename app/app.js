@@ -8,15 +8,21 @@ var idRequested;
 var slangAway = require('../lib/no-slang');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var crypto = require('crypto');
 
 var Picture = db.Picture;
 var User = db.User;
+
+
+
 
 app.set('view engine', 'jade');
 app.set('views', './views');
 
 db.sequelize.sync();
 
+
+createUser('judah', 'password');
 
 
 // --Middleware--
@@ -48,12 +54,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, done) {
-    done(null, obj);
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
+
 
 /*
 Need to update the username db check
@@ -62,7 +71,7 @@ Check the DB to make sure the Username matches
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
+    User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -85,6 +94,27 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
+//create the user function
+
+
+function createUser (username, password){
+
+  var shasum = crypto.createHash('sha256');
+  shasum.update(password);
+
+  var hashWord = shasum.digest('hex');
+
+  User.create({
+    username : username,
+    password : hashWord
+  })
+
+}
+
+
+
+
+
 //create routes here
 
 
@@ -101,9 +131,6 @@ app.get('/logout', function (req, res){
   req.logout();
   res.redirect('/');
 });
-
-
-
 
 
 
