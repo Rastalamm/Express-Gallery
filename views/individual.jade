@@ -2,20 +2,21 @@ include mixin
 extends base
 block append body
   +headingSection
-  .row.individual_page_content_container.small-12.medium-8.columns
-    p.individual_page_author_head #{picture.author}&nbsp;-&nbsp;
-      span.spanlink #{picture.link}
-    div.post_house.small-12
-      div.individual_post
-        div.individual_page_image(style='background-image: url(#{picture.link});')
-        p.individual_description.small-centered.columns= picture.description
-        p.copyright_individual.small-12.columns Copyright www.fantasticnorway.co
-        +editButton(picture)
-  .medium-4.columns.sidebar_content.hide-for-small-only
-    each picture in pictures
-      a(href=picture.id)
-        img(class='small-centered columns sidebar_image')(src= picture.link)
-      p.sidebar_sub_info #{picture.author} &nbsp;-&nbsp;
-        span.sidebarlink #{picture.link}
+  .row
+    .individual_page_content_container.small-12.medium-8.columns
+      p.individual_page_author_head #{picture.author}&nbsp;-&nbsp;
+        span.spanlink #{picture.link}
+      div.post_house.small-12
+        div.individual_post
+          div.individual_page_image(style='background-image: url(#{picture.link});')
+          p.individual_description.small-centered.columns= picture.description
+          p.copyright_individual.small-12.columns Copyright www.fantasticnorway.co
+          +editButton(picture)
+    .medium-4.columns.sidebar_content.hide-for-small-only
+      each picture in pictures
+        a(href=picture.id)
+          img(class='small-centered columns sidebar_image')(src= picture.link)
+        p.sidebar_sub_info #{picture.author} &nbsp;-&nbsp;
+          span.sidebarlink #{picture.link}
 
 
