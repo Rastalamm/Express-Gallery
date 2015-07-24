@@ -167,13 +167,25 @@ app.get('/logout', function (req, res){
   res.redirect('/');
 });
 
+app.post('/register', function (erq, res) {
 
+//check db for user
+//create user
+//redirect to home page
+
+
+
+
+});
+
+app.get('/register', function (req, res) {
+  res.render("register");
+});
 
 
 
 
 app.get('/', function(req, res) {
-
 
   Picture.findAll({
     order : [['created_at', 'ASC']]

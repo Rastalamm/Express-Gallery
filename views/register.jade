@@ -3,10 +3,10 @@ extends base
 block append body
   div.row
     div.small-12.small-centered.columns
-      h1 Login Page
+      h1 Register Page
   div.row
     div.small-10.small-centered.medium-6.columns
-      form(method='POST' action="/login")
+      form(method='POST' action="/register")
         label Username:
         input(
           type='text'
@@ -23,4 +23,4 @@ block append body
           autocomplete='off'
           required
         )
-        button Login
+        button Register
