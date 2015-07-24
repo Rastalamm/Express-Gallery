@@ -1,0 +1,26 @@
+include mixin
+extends base
+block append body
+  div.row
+    div.small-12.small-centered.columns
+      h1 Login Page
+  div.row
+    div.small-10.small-centered.medium-6.columns
+      form(method='POST' action="/login")
+        label Username:
+        input(
+          type='text'
+          name='username'
+          placeholder='username'
+          autocomplete='off'
+          required
+        )
+        label Password:
+        input(
+          type='password'
+          name='password'
+          placeholder='password'
+          autocomplete='off'
+          required
+        )
+        button Login

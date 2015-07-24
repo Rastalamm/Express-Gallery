@@ -1,11 +1,20 @@
 var db = require('../models');
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var bodyParser = require('body-parser');
-// var connect        = require('connect')
 var methodOverride = require('method-override')
 var idRequested;
 var slangAway = require('../lib/no-slang');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var crypto = require('crypto');
+var cookieParser = require('cookie-parser');
+
+var Picture = db.Picture;
+var User = db.User;
+
+
 
 
 app.set('view engine', 'jade');
@@ -14,10 +23,13 @@ app.set('views', './views');
 db.sequelize.sync();
 
 
+// createUser('judah', 'password123');
+
 
 // --Middleware--
 //Used for preprocessing requests
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(methodOverride(function(req, res){
@@ -29,16 +41,151 @@ app.use(methodOverride(function(req, res){
   }
 }))
 
-app.use(slangAway);
+// app.use(slangAway);
+
+//New middleware for the auth
+app.use(session(
+  {
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then(
+    function(user) {
+      done(null, user);
+    });
+});
+
+
+/*
+Need to update the username db check
+Check the DB to make sure the Username matches
+*/
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+
+      console.log('full', username, password);
+
+      User.findOne({
+        where: { username: username }
+      }).then(function(user) {
+
+        console.log('in the then', user);
+
+
+      if (!user) {
+        console.log('username', username);
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (user.password !==  makeHash(password)) {
+        console.log('passwrod', hashWord);
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+
+      console.log('everything is irie', user);
+      return done(null, user);
+
+    }).catch(function (err) {
+      return done(err, null);
+      console.log('error', err);
+      throw err;
+  });
+
+    // User.findOne({ username: username }, function(err, user) {
+
+    //   if (err) { return done(err); }
+    //   if (!user) {
+    //     return done(null, false, { message: 'Incorrect username.' });
+    //   }
+    //   if (!user.validPassword(password)) {
+    //     return done(null, false, { message: 'Incorrect password.' });
+    //   }
+    //   return done(null, user);
+    // });
+  }
+));
 
 
 
-var Picture = db.Picture;
+//function that redirects the user back to the home page if they are not authenticated
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}
+
+
+//create the user function
+
+var hashWord;
+
+function makeHash (password){
+
+  var shasum = crypto.createHash('sha256');
+  shasum.update(password);
+
+  hashWord = shasum.digest('hex');
+
+  return hashWord;
+}
+
+
+
+function createUser (username, password){
+
+  User.create({
+    username : username,
+    password : makeHash(password)
+  })
+}
 
 
 //create routes here
-app.get('/', function(req, res) {
 
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login' }));
+
+app.get('/login', function (req, res) {
+  res.render("login", { user: req.user } );
+});
+
+app.get('/logout', function (req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+app.post('/register', function (erq, res) {
+
+//check db for user
+//create user
+//redirect to home page
+
+
+
+
+});
+
+app.get('/register', function (req, res) {
+  res.render("register");
+});
+
+
+
+
+app.get('/', function(req, res) {
 
   Picture.findAll({
     order : [['created_at', 'ASC']]
@@ -48,6 +195,7 @@ app.get('/', function(req, res) {
       pictures : pictures
     })
   }).catch(function (err) {
+    res.send(err);
       throw err;
   });
 
@@ -81,13 +229,13 @@ app.get('/gallery/:id', function(req, res) {
 
 });
 
-app.get('/gallery', function(req, res) {
+app.get('/gallery', ensureAuthenticated, function(req, res) {
   res.render('new_photo')
 
 });
 
 
-app.post('/gallery', function(req, res) {
+app.post('/gallery', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -107,7 +255,8 @@ app.post('/gallery', function(req, res) {
   })
 });
 
-app.get('/gallery/:id/edit', function(req, res) {
+
+app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
 
   idRequested = req.params.id
 
@@ -125,7 +274,7 @@ app.get('/gallery/:id/edit', function(req, res) {
   });
 });
 
-app.put('/gallery/:id', function(req, res) {
+app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -172,6 +321,8 @@ app.delete('/gallery/:id', function(req, res) {
   });
 
 });
+
+
 
 
 var server = app.listen(8119, function () {
