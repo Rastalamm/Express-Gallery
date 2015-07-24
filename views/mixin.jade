@@ -1,13 +1,13 @@
 mixin headingSection
   div.row.user_entry_links
-    div.small-2.small-offset-10
+    div.small-6.small-offset-6.medium-2.medium-offset-10
       - if (user)
-        div.small-6.small-offset-6.columns
+        div.small-6.small-offset-6.medium-6.medium-offset-6.columns
           a.user_entry_links_pic(href='/logout') Logout
       - else
-        div.small-6.columns
+        div.small-6.medium-6.columns
           a.user_entry_links_pic(href='/register') Register
-        div.small-6.columns
+        div.small-6.medium-6.columns
           a.user_entry_links_pic(href='/login') Login
 
 
