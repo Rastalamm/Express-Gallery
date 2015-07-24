@@ -10,10 +10,11 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var crypto = require('crypto');
 var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
 
 var Picture = db.Picture;
 var User = db.User;
-
+var hashWord;
 
 
 
@@ -31,6 +32,7 @@ db.sequelize.sync();
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -75,60 +77,37 @@ Check the DB to make sure the Username matches
 passport.use(new LocalStrategy(
   function(username, password, done) {
 
-      console.log('full', username, password);
-
       User.findOne({
         where: { username: username }
       }).then(function(user) {
 
-        console.log('in the then', user);
-
-
       if (!user) {
-        console.log('username', username);
         return done(null, false, { message: 'Incorrect username.' });
       }
       if (user.password !==  makeHash(password)) {
-        console.log('passwrod', hashWord);
         return done(null, false, { message: 'Incorrect password.' });
       }
-
-      console.log('everything is irie', user);
       return done(null, user);
-
     }).catch(function (err) {
-      return done(err, null);
-      console.log('error', err);
-      throw err;
-  });
-
-    // User.findOne({ username: username }, function(err, user) {
-
-    //   if (err) { return done(err); }
-    //   if (!user) {
-    //     return done(null, false, { message: 'Incorrect username.' });
-    //   }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
-    //   return done(null, user);
-    // });
+        return done(err, null);
+        throw err;
+      });
   }
 ));
 
+//passes in the user variable to jade templates
+app.use(function(req, res, next){
+  app.locals.user = req.user;
+  next();
+});
 
 
 //function that redirects the user back to the home page if they are not authenticated
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
 }
 
-
-//create the user function
-
-var hashWord;
 
 function makeHash (password){
 
@@ -141,7 +120,6 @@ function makeHash (password){
 }
 
 
-
 function createUser (username, password){
 
   User.create({
@@ -151,15 +129,18 @@ function createUser (username, password){
 }
 
 
+
 //create routes here
 
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login' }));
+                                   failureRedirect: '/login',
+                                   failureFlash: true }));
 
 app.get('/login', function (req, res) {
-  res.render("login", { user: req.user } );
+
+  res.render("login", { user: req.user, messages: req.flash('error') } );
 });
 
 app.get('/logout', function (req, res){
@@ -167,15 +148,20 @@ app.get('/logout', function (req, res){
   res.redirect('/');
 });
 
-app.post('/register', function (erq, res) {
+app.post('/register', function (req, res) {
 
-//check db for user
-//create user
-//redirect to home page
+  User.find({
+    where: {username : req.body.username}
+  }).then(function(user){
 
-
-
-
+    if (user){
+      console.log('Its a user!');
+      res.render("register");
+    }else{
+      createUser(req.body.username, req.body.password);
+      res.render("login");
+    }
+  })
 });
 
 app.get('/register', function (req, res) {

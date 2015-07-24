@@ -39,10 +39,12 @@ a:visited{
 }
 
 .heading_row{
-  margin-top: 2%;
-  text-align: center;
-    @media #{$small}{
-      border-bottom: 2px solid $greyLine;
+    // border-bottom: 2px solid $greyLine;
+
+    @media #{$medium-up}{
+      margin-top: 2%;
+      text-align: center;
+      border-top: 2px solid #bdbdbd;
     }
 
   .logo{
@@ -73,8 +75,6 @@ a:visited{
   }
 }
 
-
-
 .slider_row{
   padding-bottom: 2%;
   padding-left: 0 !important;
@@ -84,9 +84,7 @@ a:visited{
   .slider_image{
     padding: 0;
   }
-
 }
-
 
 .post_house{
   margin-top: 2%;

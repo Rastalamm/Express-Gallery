@@ -3463,27 +3463,30 @@ a:visited {
 .hidden {
   display: none; }
 
-.heading_row {
-  margin-top: 2%;
-  text-align: center; }
-  @media only screen and (min-width: 40.0625em) {
-    .heading_row {
-      border-bottom: 2px solid #bdbdbd; } }
-  .heading_row .logo {
-    padding-top: 1%;
-    border-right: 2px solid #bdbdbd; }
-  .heading_row .sub_heading {
-    padding-top: 1%; }
-    .heading_row .sub_heading .sub_head_text {
-      font-size: .9rem; }
-  .heading_row .upload_button {
-    font-size: 4em;
-    margin-right: 2%; }
-    @media only screen {
-      .heading_row .upload_button {
-        margin-right: 0; } }
-  .heading_row .upload_button > a:hover {
-    color: #CD5555; }
+@media only screen and (min-width: 40.0625em) {
+  .heading_row {
+    margin-top: 2%;
+    text-align: center;
+    border-top: 2px solid #bdbdbd; } }
+
+.heading_row .logo {
+  padding-top: 1%;
+  border-right: 2px solid #bdbdbd; }
+
+.heading_row .sub_heading {
+  padding-top: 1%; }
+  .heading_row .sub_heading .sub_head_text {
+    font-size: .9rem; }
+
+.heading_row .upload_button {
+  font-size: 4em;
+  margin-right: 2%; }
+  @media only screen {
+    .heading_row .upload_button {
+      margin-right: 0; } }
+
+.heading_row .upload_button > a:hover {
+  color: #CD5555; }
 
 .slider_row {
   padding-bottom: 2%;

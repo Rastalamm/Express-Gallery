@@ -2,7 +2,7 @@ include mixin
 extends base
 block append body
   div.row
-    div.small-12.small-centered.columns
+    div.small-10.small-centered.medium-6.columns
       h1 Login Page
   div.row
     div.small-10.small-centered.medium-6.columns
@@ -24,3 +24,7 @@ block append body
           required
         )
         button Login
+  div.row
+    div.small-10.small-centered.medium-6.columns
+      h4 Don't have an account?
+      a(href='/register') Register Today - It's Free!
