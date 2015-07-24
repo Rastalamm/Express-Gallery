@@ -20,38 +20,68 @@ mixin headingSection
     div.small-12.medium-5.columns.sub_heading.hide-for-small-only
       p.sub_head_text Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
     div.small-2.medium-1.columns.upload_button
-      a(href="#" data-reveal-id="myModal") +
+      a(href="#" class='close-reveal-modal' data-reveal-id="plusButton") +
       div(id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
-        div.row
-          div.small-10.medium-6.small-centered.columns
-            h2.text-center Add Your Photo
-            form(method='POST')
-              p Author
-              input(
-                type='text'
-                name='author'
-                placeholder='your name'
-                autocomplete='off'
-                required
+        - if(!user)
+          h1 YOU NEED TO BE LOGGED IN
+          div.row
+            div.small-10.small-centered.medium-6.columns
+              form(method='POST' action="/login")
+                label Username:
+                input(
+                  type='text'
+                  name='username'
+                  placeholder='username'
+                  autocomplete='off'
+                  required
                 )
-              p Link to Photo
-              input(
-                type='url'
-                name='link'
-                placeholder='link to photo'
-                autocomplete='off'
-                required
+                label Password:
+                input(
+                  type='password'
+                  name='password'
+                  placeholder='password'
+                  autocomplete='off'
+                  required
                 )
-              p Description
-              input(
-                type='text'
-                name='description'
-                placeholder='description'
-                autocomplete='off'
-                required
-                )
-              button.formButtons(type='Submit') Submit
-        a( class="close-reveal-modal" aria-label="Close")&#215;
+                input.formButtons(
+                  type='submit'
+                  value='Login'
+                  )
+        - else
+          div.row
+            div.small-10.medium-6.small-centered.columns
+              h2.text-center Add Your Photo
+              form#addPhotoForm(method='POST' action='/gallery')
+                p Author
+                input(
+                  type='text'
+                  name='author'
+                  placeholder='your name'
+                  autocomplete='off'
+                  required
+                  )
+                p Link to Photo
+                input(
+                  type='url'
+                  name='link'
+                  placeholder='link to photo'
+                  autocomplete='off'
+                  required
+                  )
+                p Description
+                input(
+                  type='text'
+                  name='description'
+                  placeholder='description'
+                  autocomplete='off'
+                  required
+                  )
+                input.formButtons(
+                  class='modal_add_submit'
+                  type='submit'
+                  value='Submit'
+                  )
+          a( class="close-reveal-modal" aria-label="Close") &#215;
 
 
 

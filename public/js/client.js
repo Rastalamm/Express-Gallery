@@ -1,24 +1,56 @@
 
+$(function(){
 
-// Attach a submit handler to the form
-$( "#addPhotoForm" ).submit(function( event ) {
+  $( "#addPhotoForm" ).submit(function ( event ) {
 
-  // Stop form from submitting normally
-  event.preventDefault();
+    event.preventDefault();
 
-  // Get some values from elements on the page:
-  var $form = $( this ),
-    author = $form.find( "input[name='author']" ).val(),
-    link = $form.find( "input[name='link']" ).val(),
-    description = $form.find( "input[name='description']" ).val(),
-    url = $form.attr( "action" );
+    var data = $(this).serialize();
 
-  // Send the data using post
-  var posting = $.post( url, { author : author, link : link, description : description} );
-
-  // Put the results in a div
-  posting.done(function( data ) {
-    var content = $( data ).find( "#content" );
-    $( "#testingAjax" ).empty().append( content );
+    $.post($(this).attr('action'), data, function (serverRes){
+      addImage(serverRes);
+    })
+    .error(function(error){
+      alert('Youve got an error man')
+    });
   });
+
+  $('.modal_add_submit').on('click', function(){
+    $('#plusButton').foundation('reveal', 'close');
+  });
+  // $('a.close-reveal-modal').trigger('click');
 });
+
+
+function addImage (imgData){
+
+  var postRow = $('.post_house');
+
+  var singlePost = $('<div>', {
+    class : 'small-12 medium-4 columns single_post'
+  });
+
+  var imgHref = $('<a>', {
+    href: 'gallery' + imgData.id,
+  })
+
+  var homeImage = $('<div>', {
+    class : 'home_page_image',
+    css : {'background-image' : 'url(' + imgData.link + ')'}
+  })
+
+  var author = $('<h3>', {
+    class : 'author small-centered columns',
+    text : 'Author: ' + imgData.author
+  })
+
+  var description = $('<p>', {
+    class : 'description small-centered columns',
+    text: imgData.description
+  });
+
+
+  imgHref.append(homeImage, author, description);
+  singlePost.append(imgHref);
+  postRow.append(singlePost)
+}
