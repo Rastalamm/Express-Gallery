@@ -232,14 +232,22 @@ app.post('/gallery', ensureAuthenticated, function(req, res) {
     author : req.body.author,
     link : req.body.link,
     description : req.body.description
-  })
-  .then(function (Picture){
-    res.send(200, {
-      id : Picture.id,
-      author : req.body.author,
-      link : req.body.link,
-      description : req.body.description
-    })
+  }).then(function (Picture){
+
+      res.send(200, {
+        id : Picture.id,
+        author : req.body.author,
+        link : req.body.link,
+        description : req.body.description
+      })
+
+
+
+
+    // res.render('individual', {
+    //   picture : Picture,
+    //   pictures : allPics
+    // })
   })
 });
 
