@@ -37,12 +37,19 @@ a:visited{
 .hidden{
   display: none;
 }
+.user_entry_links{
+  margin-top: 1%;
+}
+
+.user_entry_links_pic:hover{
+  color: $adddhover;
+}
 
 .heading_row{
     // border-bottom: 2px solid $greyLine;
 
     @media #{$medium-up}{
-      margin-top: 2%;
+      margin-top: 1%;
       text-align: center;
       border-top: 2px solid #bdbdbd;
     }

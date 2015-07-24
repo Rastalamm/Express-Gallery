@@ -3463,9 +3463,15 @@ a:visited {
 .hidden {
   display: none; }
 
+.user_entry_links {
+  margin-top: 1%; }
+
+.user_entry_links_pic:hover {
+  color: #CD5555; }
+
 @media only screen and (min-width: 40.0625em) {
   .heading_row {
-    margin-top: 2%;
+    margin-top: 1%;
     text-align: center;
     border-top: 2px solid #bdbdbd; } }
 
