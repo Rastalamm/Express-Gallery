@@ -50,28 +50,33 @@ $(function(){
     });
   });
 
-  $('.login_form').submit(function (event){
+  //used for login ajax funtionality
+  // $('.login_form').submit(function (event){
 
-    event.preventDefault();
-
-
-
-    var data = $(this).serialize();
-
-    $.post($(this).attr('action'), data, function (serverRes){
-
-        console.log(serverRes)
-
-    })
-    .error(function(error){
-      alert('Youve got an error man')
-    });
+  //   event.preventDefault();
 
 
-  })
+
+  //   var data = $(this).serialize();
+
+  //   $.post($(this).attr('action'), data, function (serverRes){
+
+  //       //repost the plus button with just the add photo button
+
+  //       //render the top heading with the logout button
+
+
+
+  //     $('#plusButton').foundation('reveal', 'close');
+  //   })
+  //   .error(function(error){
+  //     alert('Youve got an error man')
+  //   });
+
+
+  // })
 
 });
-
 
 
 function replaceContent(imgData){

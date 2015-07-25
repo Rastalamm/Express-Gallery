@@ -129,26 +129,27 @@ function createUser (username, password){
 
 
 // create routes here
-// app.post('/login',
-//   passport.authenticate('local', { successRedirect: '/',
-//                                    failureRedirect: '/login',
-//                                    failureFlash: true }));
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true }));
 
-app.post('/login', function(req, res, next) {
+//used for login ajax funtionality
+// app.post('/login', function(req, res, next) {
 
-  console.log('in /login');
+//   console.log('in /login');
 
-    passport.authenticate('local', function(err, user, info) {
-        if (err) { return next(err); }
-        console.log(user);
-        if (!user) { return res.render('index'); }
-        req.logIn(user, function(err) {
-            if (err) { return next(err); }
-
-            return res.json({id : user.id, username : user.username});
-        });
-    })(req, res, next);
-});
+//     passport.authenticate('local', function(err, user, info) {
+//         if (err) { return next(err); }
+//         console.log(user);
+//         if (!user) { return res.render('index'); }
+//         req.logIn(user, function(err) {
+//             if (err) { return next(err); }
+//             return res.render('index');
+//            // return res.json({id : user.id, username : user.username});
+//         });
+//     })(req, res, next);
+// });
 
 
 app.get('/login', function (req, res) {
@@ -340,10 +341,3 @@ var server = app.listen(8119, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-//Add functionality fto forward the delete me url
-//make it a delte reqeuest..
-
-//validate the form inputs
-//make sure the middle one is a link
