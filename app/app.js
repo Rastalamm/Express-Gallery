@@ -199,7 +199,8 @@ app.get('/gallery/:id', function(req, res) {
       Picture.findAll().then(function (pictures){
         res.render('individual', {
           picture : picture,
-          pictures : pictures
+          pictures : pictures,
+          imgData_json : JSON.stringify(picture)
         })
 
       })
@@ -232,27 +233,19 @@ app.post('/gallery', ensureAuthenticated, function(req, res) {
     author : req.body.author,
     link : req.body.link,
     description : req.body.description
-  }).then(function (Picture){
-
-      res.send(200, {
-        id : Picture.id,
-        author : req.body.author,
-        link : req.body.link,
-        description : req.body.description
-      })
-
-
-
-
-    // res.render('individual', {
-    //   picture : Picture,
-    //   pictures : allPics
-    // })
+  })
+  .then(function (Picture){
+    res.send(200, {
+      id : Picture.id,
+      author : Picture.author,
+      link : Picture.link,
+      description : Picture.description
+    })
   })
 });
 
-
-app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
+//ensureAuthenticated
+app.get('/gallery/:id/edit', function(req, res) {
 
   idRequested = req.params.id
 
@@ -269,8 +262,8 @@ app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
       throw err;
   });
 });
-
-app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
+//ensureAuthenticated
+app.put('/gallery/:id', function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -284,10 +277,18 @@ app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
       link : req.body.link,
       description : req.body.description
     }).then(function (Picture){
-      res.render('individual', {
-        picture : Picture,
-        pictures : allPics
+
+
+      res.send(200, {
+        id : Picture.id,
+        author : Picture.author,
+        link : Picture.link,
+        description : Picture.description
       })
+      // res.render('individual', {
+      //   picture : Picture,
+      //   pictures : allPics
+      // })
 
     })
   }).catch(function (err) {

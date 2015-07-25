@@ -8,21 +8,94 @@ $(function(){
     var data = $(this).serialize();
 
     $.post($(this).attr('action'), data, function (serverRes){
-      addImage(serverRes);
+      addImageToHome(serverRes);
+      $('#plusButton').foundation('reveal', 'close');
     })
     .error(function(error){
       alert('Youve got an error man')
     });
   });
 
-  $('.modal_add_submit').on('click', function(){
-    $('#plusButton').foundation('reveal', 'close');
-  });
-  // $('a.close-reveal-modal').trigger('click');
+
+
+  $('.edit_button').on('click', function (){
+    //hide the edit button from the page
+
+      $('.edit_button').hide();
+
+      var imgInfo = $(this).data('imgdata');
+
+      console.log(imgInfo);
+    //Insert a form to the page two buttons to submit/cancel
+      createEditForm(imgInfo);
+
+    //attach another listener to this form.
+      //replace the content on the page with new data
+      //remove the form
+      //unhide the edit button
+  })
+
+
+
 });
 
 
-function addImage (imgData){
+function createEditForm(imgInfo){
+  var postContainer = $('.individual_page_content_container');
+
+  var editForm = $('<form>', {
+    class : '#editForm'
+  })
+
+  var editFormInputA = $('<input>', {
+    type : 'hidden',
+    name : '_method',
+    value : 'PUT'
+  })
+
+  var editFormInputB = $('<input>', {
+    type : 'text',
+    name : 'author',
+    value : imgInfo.author,
+    onFocus : "this.value=''",
+    autocomplete : 'off',
+    required : true
+  })
+
+  var editFormInputC = $('<input>', {
+    type : 'url',
+    name : 'link',
+    value : imgInfo.link,
+    onFocus : "this.value=''",
+    autocomplete : 'off',
+    required : true
+  })
+
+  var editFormInputD = $('<input>', {
+    type : 'text',
+    name : 'description',
+    value : imgInfo.description,
+    onFocus : "this.value=''",
+    autocomplete : 'off',
+    required : true
+  })
+
+  var submitFormButton = $('<input>', {
+    type : 'submit',
+    value : 'Submit'
+  })
+
+  editForm.append(editFormInputA, editFormInputB, editFormInputC, editFormInputD, submitFormButton);
+  postContainer.append(editForm);
+}
+
+
+
+
+
+
+
+function addImageToHome (imgData){
 
   var postRow = $('.post_house');
 

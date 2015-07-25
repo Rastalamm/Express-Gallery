@@ -105,8 +105,8 @@ mixin goHome
       button(type='button') Home
 
 mixin editButton(picture)
-  a(href="/gallery/#{picture.id}/edit" class='edit_button')
-    button.edit_button Edit Me
+    button.edit_button(data-imgdata='#{imgData_json}') Edit Me
+  //- a(href="/gallery/#{picture.id}/edit" class='edit_button')
 
 mixin cancelButton
   a(href='/gallery/#{picture.id}' class='cancel_button formButtons')
