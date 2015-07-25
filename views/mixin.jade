@@ -26,7 +26,7 @@ mixin headingSection
           h1 YOU NEED TO BE LOGGED IN
           div.row
             div.small-10.small-centered.medium-6.columns
-              form(method='POST' action="/login")
+              form.login_form(method='POST' action="/login")
                 label Username:
                 input(
                   type='text'
@@ -43,10 +43,10 @@ mixin headingSection
                   autocomplete='off'
                   required
                 )
-                input.formButtons(
+                input.login_form_button(
                   type='submit'
                   value='Login'
-                  )
+                )
         - else
           div.row
             div.small-10.medium-6.small-centered.columns

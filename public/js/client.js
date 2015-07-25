@@ -50,6 +50,26 @@ $(function(){
     });
   });
 
+  $('.login_form').submit(function (event){
+
+    event.preventDefault();
+
+
+
+    var data = $(this).serialize();
+
+    $.post($(this).attr('action'), data, function (serverRes){
+
+        console.log(serverRes)
+
+    })
+    .error(function(error){
+      alert('Youve got an error man')
+    });
+
+
+  })
+
 });
 
 

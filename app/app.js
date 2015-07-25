@@ -16,7 +16,11 @@ var Picture = db.Picture;
 var User = db.User;
 var hashWord;
 
-
+//Const: .30
+//Kawika: .3
+//Dan: .6
+//Jason: .23
+//Judah: .24
 
 app.set('view engine', 'jade');
 app.set('views', './views');
@@ -124,16 +128,30 @@ function createUser (username, password){
 
 
 
-//create routes here
+// create routes here
+// app.post('/login',
+//   passport.authenticate('local', { successRedirect: '/',
+//                                    failureRedirect: '/login',
+//                                    failureFlash: true }));
 
+app.post('/login', function(req, res, next) {
 
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true }));
+  console.log('in /login');
+
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        console.log(user);
+        if (!user) { return res.render('index'); }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+
+            return res.json({id : user.id, username : user.username});
+        });
+    })(req, res, next);
+});
+
 
 app.get('/login', function (req, res) {
-
   res.render("login", { user: req.user, messages: req.flash('error') } );
 });
 
