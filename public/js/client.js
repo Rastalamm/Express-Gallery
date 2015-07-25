@@ -25,26 +25,62 @@ $(function(){
 
       var imgInfo = $(this).data('imgdata');
 
-      console.log(imgInfo);
     //Insert a form to the page two buttons to submit/cancel
       createEditForm(imgInfo);
 
     //attach another listener to this form.
-      //replace the content on the page with new data
-      //remove the form
-      //unhide the edit button
-  })
 
+    $('.edit_form').submit(function (event){
+
+      event.preventDefault();
+      var data = $(this).serialize();
+
+      $.ajax({
+        url : $(this).attr('action'),
+        type : 'PUT',
+        data : data,
+        success : function (serverRes) {
+                  replaceContent(serverRes);
+                  $('.edit_form').hide();
+                  $('.edit_button').show();
+                }
+      });
+    });
+  });
 
 
 });
+
+
+
+function replaceContent(imgData){
+
+  var individualPageAuthorHead = $('.individual_page_author_head');
+  var individualPageAuthorHeadUrl = $('<span>',{
+    class : 'spanlink',
+    text : imgData.link
+  })
+
+  var individualPageImage = $('.individual_page_image')
+  var individuualPageDesc = $('.individual_description');
+
+  individualPageAuthorHead.html(imgData.author + ' - ');
+  individualPageAuthorHead.append(individualPageAuthorHeadUrl);
+  individualPageImage.css('background-image', 'url(' + imgData.link + ')')
+  individuualPageDesc.html(imgData.description);
+
+
+}
+
+
+
 
 
 function createEditForm(imgInfo){
   var postContainer = $('.individual_page_content_container');
 
   var editForm = $('<form>', {
-    class : '#editForm'
+    class : 'edit_form'
   })
 
   var editFormInputA = $('<input>', {
