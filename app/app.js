@@ -16,7 +16,11 @@ var Picture = db.Picture;
 var User = db.User;
 var hashWord;
 
-
+//Const: .30
+//Kawika: .3
+//Dan: .6
+//Jason: .23
+//Judah: .24
 
 app.set('view engine', 'jade');
 app.set('views', './views');
@@ -69,14 +73,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-/*
-Need to update the username db check
-Check the DB to make sure the Username matches
-*/
-
 passport.use(new LocalStrategy(
   function(username, password, done) {
-
       User.findOne({
         where: { username: username }
       }).then(function(user) {
@@ -130,16 +128,31 @@ function createUser (username, password){
 
 
 
-//create routes here
-
-
+// create routes here
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
                                    failureFlash: true }));
 
-app.get('/login', function (req, res) {
+//used for login ajax funtionality
+// app.post('/login', function(req, res, next) {
 
+//   console.log('in /login');
+
+//     passport.authenticate('local', function(err, user, info) {
+//         if (err) { return next(err); }
+//         console.log(user);
+//         if (!user) { return res.render('index'); }
+//         req.logIn(user, function(err) {
+//             if (err) { return next(err); }
+//             return res.render('index');
+//            // return res.json({id : user.id, username : user.username});
+//         });
+//     })(req, res, next);
+// });
+
+
+app.get('/login', function (req, res) {
   res.render("login", { user: req.user, messages: req.flash('error') } );
 });
 
@@ -199,7 +212,8 @@ app.get('/gallery/:id', function(req, res) {
       Picture.findAll().then(function (pictures){
         res.render('individual', {
           picture : picture,
-          pictures : pictures
+          pictures : pictures,
+          imgData_json : JSON.stringify(picture)
         })
 
       })
@@ -232,17 +246,19 @@ app.post('/gallery', ensureAuthenticated, function(req, res) {
     author : req.body.author,
     link : req.body.link,
     description : req.body.description
-  }).then(function (Picture){
-
-    res.render('individual', {
-      picture : Picture,
-      pictures : allPics
+  })
+  .then(function (Picture){
+    res.send(200, {
+      id : Picture.id,
+      author : Picture.author,
+      link : Picture.link,
+      description : Picture.description
     })
   })
 });
 
-
-app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
+//ensureAuthenticated
+app.get('/gallery/:id/edit', function(req, res) {
 
   idRequested = req.params.id
 
@@ -259,8 +275,8 @@ app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
       throw err;
   });
 });
-
-app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
+//ensureAuthenticated
+app.put('/gallery/:id', function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -274,10 +290,18 @@ app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
       link : req.body.link,
       description : req.body.description
     }).then(function (Picture){
-      res.render('individual', {
-        picture : Picture,
-        pictures : allPics
+
+
+      res.send(200, {
+        id : Picture.id,
+        author : Picture.author,
+        link : Picture.link,
+        description : Picture.description
       })
+      // res.render('individual', {
+      //   picture : Picture,
+      //   pictures : allPics
+      // })
 
     })
   }).catch(function (err) {
@@ -317,10 +341,3 @@ var server = app.listen(8119, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-//Add functionality fto forward the delete me url
-//make it a delte reqeuest..
-
-//validate the form inputs
-//make sure the middle one is a link
