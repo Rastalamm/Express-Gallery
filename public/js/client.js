@@ -22,6 +22,7 @@ $(function(){
     //hide the edit button from the page
 
       $('.edit_button').hide();
+      $('.delete_button').hide();
 
       var imgInfo = $(this).data('imgdata');
 
@@ -43,18 +44,17 @@ $(function(){
                   replaceContent(serverRes);
                   $('.edit_form').hide();
                   $('.edit_button').show();
+                  $('.delete_button').show();
                 }
       });
     });
   });
-
 
 });
 
 
 
 function replaceContent(imgData){
-
   var individualPageAuthorHead = $('.individual_page_author_head');
   var individualPageAuthorHeadUrl = $('<span>',{
     class : 'spanlink',
@@ -68,13 +68,7 @@ function replaceContent(imgData){
   individualPageAuthorHead.append(individualPageAuthorHeadUrl);
   individualPageImage.css('background-image', 'url(' + imgData.link + ')')
   individuualPageDesc.html(imgData.description);
-
-
-}
-
-
-
-
+};
 
 function createEditForm(imgInfo){
   var postContainer = $('.individual_page_content_container');
@@ -84,12 +78,6 @@ function createEditForm(imgInfo){
   })
 
   var editFormInputA = $('<input>', {
-    type : 'hidden',
-    name : '_method',
-    value : 'PUT'
-  })
-
-  var editFormInputB = $('<input>', {
     type : 'text',
     name : 'author',
     value : imgInfo.author,
@@ -98,7 +86,7 @@ function createEditForm(imgInfo){
     required : true
   })
 
-  var editFormInputC = $('<input>', {
+  var editFormInputB = $('<input>', {
     type : 'url',
     name : 'link',
     value : imgInfo.link,
@@ -107,7 +95,7 @@ function createEditForm(imgInfo){
     required : true
   })
 
-  var editFormInputD = $('<input>', {
+  var editFormInputC = $('<input>', {
     type : 'text',
     name : 'description',
     value : imgInfo.description,
@@ -121,15 +109,9 @@ function createEditForm(imgInfo){
     value : 'Submit'
   })
 
-  editForm.append(editFormInputA, editFormInputB, editFormInputC, editFormInputD, submitFormButton);
+  editForm.append(editFormInputA, editFormInputB, editFormInputC, submitFormButton);
   postContainer.append(editForm);
-}
-
-
-
-
-
-
+};
 
 function addImageToHome (imgData){
 
@@ -162,4 +144,4 @@ function addImageToHome (imgData){
   imgHref.append(homeImage, author, description);
   singlePost.append(imgHref);
   postRow.append(singlePost)
-}
+};

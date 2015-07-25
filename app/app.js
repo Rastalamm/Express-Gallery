@@ -69,14 +69,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-/*
-Need to update the username db check
-Check the DB to make sure the Username matches
-*/
-
 passport.use(new LocalStrategy(
   function(username, password, done) {
-
       User.findOne({
         where: { username: username }
       }).then(function(user) {
