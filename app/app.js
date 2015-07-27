@@ -258,7 +258,7 @@ app.post('/gallery', ensureAuthenticated, function(req, res) {
 });
 
 //ensureAuthenticated
-app.get('/gallery/:id/edit', function(req, res) {
+app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
 
   idRequested = req.params.id
 
@@ -275,8 +275,8 @@ app.get('/gallery/:id/edit', function(req, res) {
       throw err;
   });
 });
-//ensureAuthenticated
-app.put('/gallery/:id', function(req, res) {
+
+app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -310,7 +310,7 @@ app.put('/gallery/:id', function(req, res) {
 });
 
 
-app.delete('/gallery/:id', function(req, res) {
+app.delete('/gallery/:id', ensureAuthenticated, function(req, res) {
 
   console.log('delte');
 
