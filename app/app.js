@@ -103,7 +103,7 @@ app.use(function(req, res, next){
 //function that redirects the user back to the home page if they are not authenticated
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/')
 }
 
 
