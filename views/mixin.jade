@@ -6,9 +6,61 @@ mixin headingSection
           a.user_entry_links_pic(href='/logout') Logout
       - else
         div.small-6.medium-6.columns
-          a.user_entry_links_pic(href='/register') Register
+          a(href="#" data-reveal-id="registerLink") Register
+            div(id="registerLink" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
+              h1.text-center Register Today!
+              div.row
+                div.small-10.small-centered.medium-6.columns
+                  form(method='POST' action="/register")
+                    label Username:
+                    input(
+                      type='text'
+                      name='username'
+                      placeholder='username'
+                      autocomplete='off'
+                      required
+                    )
+                    label Password:
+                    input(
+                      type='password'
+                      name='password'
+                      placeholder='password'
+                      autocomplete='off'
+                      required
+                    )
+                    button Register
+              a( class="close-reveal-modal" aria-label="Close") &#215;
+
+
         div.small-6.medium-6.columns
-          a.user_entry_links_pic(href='/login') Login
+          a(href="#" data-reveal-id="loginLink") Login
+            div(id="loginLink" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
+              h1.text-center Please login below
+              div.row
+                div.small-10.small-centered.medium-6.columns
+                  form.login_form(method='POST' action="/login")
+                    label Username:
+                    input(
+                      type='text'
+                      name='username'
+                      placeholder='username'
+                      autocomplete='off'
+                      required
+                    )
+                    label Password:
+                    input(
+                      type='password'
+                      name='password'
+                      placeholder='password'
+                      autocomplete='off'
+                      required
+                    )
+                    input.login_form_button(
+                      type='submit'
+                      value='Login'
+                    )
+              a( class="close-reveal-modal" aria-label="Close") &#215;
+
 
 
 
@@ -20,10 +72,10 @@ mixin headingSection
     div.small-12.medium-5.columns.sub_heading.hide-for-small-only
       p.sub_head_text Welcome to our online portfolio, we are a small group of passionate designers and architects, looking to change and create amazing digitial images to inspire others to follow in out innovative steps. Free Architect Word
     div.small-2.medium-1.columns.upload_button
-      a(href="#" class='close-reveal-modal' data-reveal-id="plusButton") +
+      a(href="#" data-reveal-id="plusButton") +
       div(id="plusButton" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
         - if(!user)
-          h1 YOU NEED TO BE LOGGED IN
+          h1.text-center Please login below
           div.row
             div.small-10.small-centered.medium-6.columns
               form.login_form(method='POST' action="/login")

@@ -131,7 +131,7 @@ function createUser (username, password){
 // create routes here
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
+                                   failureRedirect: '/',
                                    failureFlash: true }));
 
 //used for login ajax funtionality

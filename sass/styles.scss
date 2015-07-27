@@ -44,6 +44,12 @@ a:visited{
   color: $addhover;
 }
 
+
+.modal_heading{
+  width: 50%;
+  margin: auto;
+}
+
 .heading_row{
 
     @media #{$medium-up}{

@@ -7,11 +7,11 @@ block append body
       +slickSlider
 
   div.row.post_house
-      each picture in pictures
-        div(class='small-12 medium-4 columns single_post')
-          a(href="/gallery/#{picture.id}")
-            div.home_page_image(style='background-image: url(#{picture.link});')
-            h3.author.small-centered.columns Author: #{picture.author}
-            p.description.small-centered.columns= picture.description
+    each picture in pictures
+      div(class='small-12 medium-4 columns single_post')
+        a(href="/gallery/#{picture.id}")
+          div.home_page_image(style='background-image: url(#{picture.link});')
+          h3.author.small-centered.columns Author: #{picture.author}
+          p.description.small-centered.columns= picture.description
 
 
