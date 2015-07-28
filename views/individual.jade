@@ -13,9 +13,11 @@ block append body
           p.copyright_individual.small-12.columns Copyright www.fantasticnorway.co
         .row
           .small-12.medium-4.columns.medium-offset-2
-            +editButton(picture)
+            - if (user)
+              +editButton(picture)
           .small-12.medium-4.columns.end
-            +deleteButton(picture)
+            - if (user)
+              +deleteButton(picture)
     .medium-4.columns.sidebar_content.hide-for-small-only
       each picture in pictures
         a(href=picture.id)

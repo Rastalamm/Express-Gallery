@@ -21,6 +21,8 @@ $(function(){
   $('.edit_button').on('click', function (){
     //hide the edit button from the page
 
+    console.log('user', user);
+
       $('.edit_button').hide();
       $('.delete_button').hide();
 
