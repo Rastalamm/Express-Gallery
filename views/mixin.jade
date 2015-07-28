@@ -140,7 +140,7 @@ mixin slickSlider
 
 mixin picturePost(picture, postLayout, imageClass)
     div(class='single_post ' + postLayout)
-      div(class='small-12 small-centered columns ')(style='background-image: url(#{picture.link});')
+      div(class='small-12 small-centered columns ' style='background-image: url(#{picture.link});')
       h3.author.small-centered.columns Author: #{picture.author}
       p.description.small-centered.columns= picture.description
     if block

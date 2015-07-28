@@ -312,8 +312,6 @@ app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
 
 app.delete('/gallery/:id', ensureAuthenticated, function(req, res) {
 
-  console.log('delte');
-
   idRequested = req.params.id
 
   Picture.findById(idRequested).then(function (picture){

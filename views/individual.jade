@@ -19,7 +19,7 @@ block append body
     .medium-4.columns.sidebar_content.hide-for-small-only
       each picture in pictures
         a(href=picture.id)
-          img(class='small-centered columns sidebar_image')(src= picture.link)
+          img(class='small-centered columns sidebar_image' src= picture.link)
         p.sidebar_sub_info #{picture.author} &nbsp;-&nbsp;
           span.sidebarlink #{picture.link}
 
