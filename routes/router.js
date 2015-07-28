@@ -1,18 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var crypto = require('crypto');
 var db = require('../models');
 
 var Picture = db.Picture;
 var User = db.User;
 var hashWord;
 
+db.sequelize.sync();
+
+
 //function that redirects the user back to the home page if they are not authenticated
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/')
 }
-
 
 function makeHash (password){
 
@@ -23,6 +27,8 @@ function makeHash (password){
 
   return hashWord;
 }
+
+
 
 
 function createUser (username, password){
@@ -77,13 +83,13 @@ router.post('/register', function (req, res) {
       res.render("register");
     }else{
       createUser(req.body.username, req.body.password);
-      res.render("login");
+      res.redirect("/");
     }
   })
 });
 
 router.get('/register', function (req, res) {
-  res.render("register");
+  res.redirect("/");
 });
 
 

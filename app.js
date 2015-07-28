@@ -1,20 +1,17 @@
-var db = require('../models');
+var db = require('./models');
 var express = require('express');
 var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var idRequested;
-var slangAway = require('../lib/no-slang');
+var slangAway = require('./lib/no-slang');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var crypto = require('crypto');
 var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
-var routes = require('../routes/router');
-
-
-
+var routes = require('./routes/router');
 
 //Const: .30
 //Kawika: .3
@@ -25,12 +22,14 @@ var routes = require('../routes/router');
 app.set('view engine', 'jade');
 app.set('views', './views');
 
-db.sequelize.sync();
+var Picture = db.Picture;
+var User = db.User;
+var hashWord;
 
 
 // createUser('judah', 'password123');
 
-app.use('/', routes);
+
 // --Middleware--
 //Used for preprocessing requests
 app.use(express.static('public'));
@@ -98,6 +97,19 @@ app.use(function(req, res, next){
   app.locals.user = req.user;
   next();
 });
+app.use('/', routes);
+
+function makeHash (password){
+
+  var shasum = crypto.createHash('sha256');
+  shasum.update(password);
+
+  hashWord = shasum.digest('hex');
+
+  return hashWord;
+}
+
+
 
 
 var server = app.listen(8119, function () {
