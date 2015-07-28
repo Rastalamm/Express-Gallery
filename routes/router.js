@@ -1,14 +1,52 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var crypto = require('crypto');
+var db = require('../models');
+
+var Picture = db.Picture;
+var User = db.User;
+var hashWord;
+
+db.sequelize.sync();
+
+
+//function that redirects the user back to the home page if they are not authenticated
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/')
+}
+
+function makeHash (password){
+
+  var shasum = crypto.createHash('sha256');
+  shasum.update(password);
+
+  hashWord = shasum.digest('hex');
+
+  return hashWord;
+}
+
+
+
+
+function createUser (username, password){
+
+  User.create({
+    username : username,
+    password : makeHash(password)
+  })
+}
 
 // create routes here
-app.post('/login',
+router.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/',
                                    failureFlash: true }));
 
 //used for login ajax funtionality
-// app.post('/login', function(req, res, next) {
+// router.post('/login', function(req, res, next) {
 
 //   console.log('in /login');
 
@@ -25,16 +63,16 @@ app.post('/login',
 // });
 
 
-app.get('/login', function (req, res) {
+router.get('/login', function (req, res) {
   res.render("login", { user: req.user, messages: req.flash('error') } );
 });
 
-app.get('/logout', function (req, res){
+router.get('/logout', function (req, res){
   req.logout();
   res.redirect('/');
 });
 
-app.post('/register', function (req, res) {
+router.post('/register', function (req, res) {
 
   User.find({
     where: {username : req.body.username}
@@ -45,19 +83,19 @@ app.post('/register', function (req, res) {
       res.render("register");
     }else{
       createUser(req.body.username, req.body.password);
-      res.render("login");
+      res.redirect("/");
     }
   })
 });
 
-app.get('/register', function (req, res) {
-  res.render("register");
+router.get('/register', function (req, res) {
+  res.redirect("/");
 });
 
 
 
 
-app.get('/', function(req, res) {
+router.get('/', function(req, res) {
 
   Picture.findAll({
     order : [['created_at', 'ASC']]
@@ -75,7 +113,7 @@ app.get('/', function(req, res) {
 
 });
 
-app.get('/gallery/:id', function(req, res) {
+router.get('/gallery/:id', function(req, res) {
 
   var idRequested = req.params.id
 
@@ -102,13 +140,13 @@ app.get('/gallery/:id', function(req, res) {
 
 });
 
-app.get('/gallery', ensureAuthenticated, function(req, res) {
+router.get('/gallery', ensureAuthenticated, function(req, res) {
   res.render('new_photo')
 
 });
 
 
-app.post('/gallery', ensureAuthenticated, function(req, res) {
+router.post('/gallery', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -131,7 +169,7 @@ app.post('/gallery', ensureAuthenticated, function(req, res) {
 });
 
 //ensureAuthenticated
-app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
+router.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
 
   idRequested = req.params.id
 
@@ -149,7 +187,7 @@ app.get('/gallery/:id/edit', ensureAuthenticated, function(req, res) {
   });
 });
 
-app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
+router.put('/gallery/:id', ensureAuthenticated, function(req, res) {
   idRequested = req.params.id
   var allPics;
   Picture.findAll().then(function (pictures){
@@ -183,7 +221,7 @@ app.put('/gallery/:id', ensureAuthenticated, function(req, res) {
 });
 
 
-app.delete('/gallery/:id', ensureAuthenticated, function(req, res) {
+router.delete('/gallery/:id', ensureAuthenticated, function(req, res) {
 
   idRequested = req.params.id
 
@@ -202,3 +240,5 @@ app.delete('/gallery/:id', ensureAuthenticated, function(req, res) {
   });
 
 });
+
+module.exports = router;

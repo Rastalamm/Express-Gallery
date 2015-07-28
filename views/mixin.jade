@@ -6,7 +6,7 @@ mixin headingSection
           a.user_entry_links_pic(href='/logout') Logout
       - else
         div.small-6.medium-6.columns
-          a(href="#" data-reveal-id="registerLink") Register
+          a.user_entry_links_pic(href="#" data-reveal-id="registerLink") Register
             div(id="registerLink" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
               h1.text-center Register Today!
               div.row
@@ -31,7 +31,7 @@ mixin headingSection
                     button Register
             a( class="close-reveal-modal" aria-label="Close")
         div.small-6.medium-6.columns
-          a(href="#" data-reveal-id="loginLink") Login
+          a.user_entry_links_pic(href="#" data-reveal-id="loginLink") Login
             div(id="loginLink" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog")
               h1.text-center Please login below
               div.row
